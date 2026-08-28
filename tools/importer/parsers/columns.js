@@ -21,8 +21,18 @@ export default function parse(element, { document }) {
   const pretitle = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"]');
   if (pretitle) contentCell.push(pretitle);
 
-  const title = element.querySelector('.cmp-teaser__title, h1, h2, h3, [class*="title"]');
-  if (title) contentCell.push(title);
+  // Note: avoid a broad [class*="title"] match — it also catches
+  // .cmp-teaser__pretitle (substring "title") and querySelector returns the
+  // earliest DOM match, clobbering the real title with the eyebrow text.
+  const title = element.querySelector('.cmp-teaser__title, h1, h2, h3');
+  if (title && (title.textContent || '').trim()) {
+    // Rebuild as a clean heading so whitespace-only text nodes / wrapper markup
+    // in the source don't cause the title to be dropped during md conversion.
+    const tag = /^H[1-6]$/.test(title.tagName) ? title.tagName.toLowerCase() : 'h2';
+    const heading = document.createElement(tag);
+    heading.textContent = (title.textContent || '').trim();
+    contentCell.push(heading);
+  }
 
   const description = element.querySelector('.cmp-teaser__description, [class*="description"]');
   if (description) contentCell.push(description);

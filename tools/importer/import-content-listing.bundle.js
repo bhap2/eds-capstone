@@ -46,8 +46,13 @@ var CustomImportScript = (() => {
     const contentCell = [];
     const pretitle = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"]');
     if (pretitle) contentCell.push(pretitle);
-    const title = element.querySelector('.cmp-teaser__title, h1, h2, h3, [class*="title"]');
-    if (title) contentCell.push(title);
+    const title = element.querySelector(".cmp-teaser__title, h1, h2, h3");
+    if (title && (title.textContent || "").trim()) {
+      const tag = /^H[1-6]$/.test(title.tagName) ? title.tagName.toLowerCase() : "h2";
+      const heading = document2.createElement(tag);
+      heading.textContent = (title.textContent || "").trim();
+      contentCell.push(heading);
+    }
     const description = element.querySelector('.cmp-teaser__description, [class*="description"]');
     if (description) contentCell.push(description);
     const cta = element.querySelector(".cmp-teaser__action-link, .cmp-teaser__action-container a");
