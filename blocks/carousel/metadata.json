@@ -31,9 +31,9 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/us/en"],
-    "reuseCount": 1,
-    "lastUsed": "2026-08-28T00:00:00.000Z"
+    "pagesUsing": ["/us/en", "/us/en/adventures/bali-surf-camp"],
+    "reuseCount": 2,
+    "lastUsed": "2026-08-28T13:30:00.000Z"
   },
   "notes": "Created to match the project's plain-named boilerplate convention (cards, columns, hero are all base-named). Vanilla Block Collection carousel copied verbatim; base '.carousel' classes retained since the block name is unchanged."
 }

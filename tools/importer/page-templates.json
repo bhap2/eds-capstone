@@ -8,7 +8,48 @@
       ],
       "coverageGaps": [],
       "description": "Content landing page with intro heading and a grid or list of teaser cards",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "columns",
+          "instances": [
+            ".teaser.cmp-teaser--featured"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".image-list.list"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "featured",
+          "name": "Featured Teaser",
+          "selector": [
+            ".teaser.cmp-teaser--featured"
+          ],
+          "style": "grey",
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "all-articles",
+          "name": "All Articles",
+          "selector": [
+            ".image-list.list"
+          ],
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            ".cmp-title--underline .cmp-title__text"
+          ]
+        }
+      ]
     },
     {
       "name": "adventure-detail",
@@ -32,7 +73,67 @@
       ],
       "coverageGaps": [],
       "description": "Detail page with hero image, title, metadata sidebar/columns, and long-form body content",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "carousel",
+          "instances": [
+            ".carousel.cmp-carousel--mini",
+            ".cmp-carousel"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            "article[class*=\"cmp-contentfragment--\"] dl.cmp-contentfragment__elements"
+          ]
+        },
+        {
+          "name": "tabs",
+          "instances": [
+            ".tabs.panelcontainer .cmp-tabs"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "name": "Hero Carousel",
+          "selector": [
+            ".carousel.cmp-carousel--mini"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "details",
+          "name": "Activity Details",
+          "selector": [
+            "article[class*=\"cmp-contentfragment--\"]"
+          ],
+          "style": null,
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": [
+            ".cmp-title__text"
+          ]
+        },
+        {
+          "id": "body",
+          "name": "Body Tabs",
+          "selector": [
+            ".tabs.panelcontainer"
+          ],
+          "style": null,
+          "blocks": [
+            "tabs"
+          ],
+          "defaultContent": []
+        }
+      ]
     },
     {
       "name": "adventure-listing",
@@ -41,7 +142,51 @@
       ],
       "coverageGaps": [],
       "description": "Section landing page with intro heading and a responsive grid of image cards linking to detail pages",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": [
+            ".teaser.cmp-teaser--hero"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            ".cmp-tabs__tabpanel--active .image-list.list",
+            ".image-list.list"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "intro",
+          "name": "Page Intro",
+          "selector": [
+            ".teaser.cmp-teaser--hero"
+          ],
+          "style": null,
+          "blocks": [
+            "hero"
+          ],
+          "defaultContent": [
+            ".cmp-title__text"
+          ]
+        },
+        {
+          "id": "grid",
+          "name": "Current Adventures",
+          "selector": [
+            ".tabs.panelcontainer"
+          ],
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            ".cmp-title__text"
+          ]
+        }
+      ]
     },
     {
       "name": "faq-page",
@@ -50,7 +195,30 @@
       ],
       "coverageGaps": [],
       "description": "Simple content page with heading and stacked question-and-answer text blocks",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "accordion-faq",
+          "instances": [
+            ".cmp-accordion"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "faq",
+          "name": "FAQ Accordion",
+          "selector": [
+            ".cmp-accordion"
+          ],
+          "style": null,
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": [
+            ".cmp-title__text"
+          ]
+        }
+      ]
     },
     {
       "name": "homepage",
@@ -161,7 +329,29 @@
       ],
       "coverageGaps": [],
       "description": "Article page with hero image, title, byline, and long-form editorial body content",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "cards",
+          "instances": [
+            "aside .list.cmp-list--upnext",
+            ".cmp-list--upnext"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "related",
+          "name": "Up Next Related",
+          "selector": [
+            "aside .list.cmp-list--upnext"
+          ],
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ],
   "metadata": {
