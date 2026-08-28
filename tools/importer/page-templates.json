@@ -3,8 +3,8 @@
     {
       "name": "content-listing",
       "urls": [
-        "https://wknd.site/us/en/about-us.html",
-        "https://wknd.site/us/en/magazine.html"
+        "https://wknd.site/us/en/magazine.html",
+        "https://wknd.site/us/en/about-us.html"
       ],
       "coverageGaps": [],
       "description": "Content landing page with intro heading and a grid or list of teaser cards",

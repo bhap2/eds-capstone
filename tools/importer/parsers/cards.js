@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 /**
- * Parser for cards.
+ * Parser for cards (two variants: image-list grid + no-image cmp-list).
  * Base block: cards
  * Source: https://wknd.site/us/en.html (.image-list.list)
  * Generated: 2026-08-28
@@ -16,7 +16,46 @@
  * image link, a title link, and a description.
  */
 export default function parse(element, { document }) {
-  // Each list item is a card.
+  // Variant B: "Cards (no images)" — AEM cmp-list (e.g. .cmp-list--upnext).
+  // Each <li.cmp-list__item> is a linked title + date, no thumbnail. Emit a
+  // single-column card (linked heading + date paragraph).
+  const listItems = Array.from(element.querySelectorAll('.cmp-list__item'));
+  if (listItems.length) {
+    const cells = [];
+    listItems.forEach((item) => {
+      const link = item.querySelector('.cmp-list__item-link, a');
+      const title = item.querySelector('.cmp-list__item-title, [class*="title"]');
+      const date = item.querySelector('.cmp-list__item-date, [class*="date"]');
+      const content = [];
+      const titleText = title ? (title.textContent || '').trim() : (link ? (link.textContent || '').trim() : '');
+      if (titleText) {
+        const heading = document.createElement('h3');
+        if (link && link.getAttribute('href')) {
+          const a = document.createElement('a');
+          a.href = link.getAttribute('href');
+          a.textContent = titleText;
+          heading.append(a);
+        } else {
+          heading.textContent = titleText;
+        }
+        content.push(heading);
+      }
+      if (date && (date.textContent || '').trim()) {
+        const p = document.createElement('p');
+        p.textContent = (date.textContent || '').trim();
+        content.push(p);
+      }
+      if (content.length) cells.push([content]);
+    });
+    if (cells.length) {
+      const block = WebImporter.Blocks.createBlock(document, { name: 'cards', cells });
+      element.replaceWith(block);
+      return;
+    }
+  }
+
+  // Variant A: image-list grid (homepage / listings). Each list item is a card
+  // with an image + text content.
   const items = Array.from(
     element.querySelectorAll('.cmp-image-list__item, li'),
   );
