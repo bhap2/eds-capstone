@@ -1,0 +1,39 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-08-28T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en.html",
+    "originPage": "WKND homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + paragraph + CTA per slide",
+    "buttonCount": 1,
+    "imageCount": 3,
+    "slideCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "landing/home pages needing a rotating hero banner",
+      "promotional multi-slide showcases with image + heading + CTA"
+    ],
+    "notSuitableFor": [
+      "single static banners (use hero)",
+      "grids of repeatable items (use cards)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-28T00:00:00.000Z"
+  },
+  "notes": "Created to match the project's plain-named boilerplate convention (cards, columns, hero are all base-named). Vanilla Block Collection carousel copied verbatim; base '.carousel' classes retained since the block name is unchanged."
+}

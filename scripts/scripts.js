@@ -10,7 +10,36 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  readBlockConfig,
 } from './aem.js';
+
+/**
+ * Applies section metadata as classes/styles on the parent section.
+ * This project's vendored aem.js `decorateSections` omits the standard
+ * `.section-metadata` handling, so we process it here before sections are
+ * decorated. Each `.section-metadata` block's rows become section-scoped:
+ * a `style` key adds space-separated classes; other keys become data-*.
+ * @param {Element} main The main container element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll(':scope > div > div.section-metadata').forEach((meta) => {
+    const section = meta.parentElement;
+    if (!section) return;
+    const config = readBlockConfig(meta);
+    Object.entries(config).forEach(([key, value]) => {
+      if (!value) return;
+      if (key === 'style') {
+        value.split(',').forEach((s) => {
+          const cls = s.trim().toLowerCase().replace(/[^0-9a-z]+/g, '-').replace(/(^-+|-+$)/g, '');
+          if (cls) section.classList.add(cls);
+        });
+      } else {
+        section.dataset[key.replace(/-([a-z])/g, (m, c) => c.toUpperCase())] = value;
+      }
+    });
+    meta.remove();
+  });
+}
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -150,6 +179,7 @@ function decorateButtons(main) {
 export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
+  decorateSectionMetadata(main);
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
