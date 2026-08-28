@@ -1,5 +1,22 @@
-.carousel .carousel-slides-container {
+/* Block: carousel (WKND hero) — full-bleed image with white content box overlapping bottom.
+   Visual values extracted from https://wknd.site/us/en.html (.cmp-carousel--hero). */
+
+/* Full-bleed: escape the 1200px section wrapper */
+.carousel-wrapper {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+/* Block is the positioning context for the nav arrows */
+.carousel {
   position: relative;
+  width: 100%;
+  max-width: none;
+}
+
+/* --- functional slider plumbing (kept from EDS boilerplate) --- */
+.carousel .carousel-slides-container {
+  position: static;
 }
 
 .carousel .carousel-slides,
@@ -23,97 +40,152 @@
 .carousel .carousel-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  display: block;
   position: relative;
   width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+  min-height: 0;
 }
 
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
-  align-items: center;
-}
-
-.carousel .carousel-slide:has(.carousel-slide-content[data-align='right']) {
-  align-items: flex-end;
+/* --- Slide image: full-bleed, fixed responsive height --- */
+.carousel .carousel-slide .carousel-slide-image {
+  position: static;
 }
 
 .carousel .carousel-slide .carousel-slide-image picture {
-  position: absolute;
-  inset: 0;
+  position: static;
+  display: block;
 }
 
-.carousel .carousel-slide .carousel-slide-image picture > img {
-  height: 100%;
+.carousel .carousel-slide .carousel-slide-image img {
+  display: block;
   width: 100%;
+  height: 56vw;               /* mobile: ~219px on a 390px viewport */
+  min-height: 200px;
   object-fit: cover;
 }
 
+/* --- Content box --- */
+
+/* Mobile: transparent, sits below image on the page background */
 .carousel .carousel-slide .carousel-slide-content {
-  z-index: 1;
-  margin: 68px;
-  padding: 16px;
-  color: white;
-  background-color: rgb(19 19 19 / 75%);
   position: relative;
-  width: var(--slide-content-width, auto);
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 16px 8px;
+  background-color: transparent;
+  color: var(--text-color);
+  text-align: left;
 }
 
+/* Heading — Asar 36px/54px (matches WKND title) */
+.carousel .carousel-slide .carousel-slide-content h2 {
+  margin: 18px 0 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 54px;
+  color: var(--text-color);
+}
+
+/* Body copy — 18px/31.5px */
+.carousel .carousel-slide .carousel-slide-content p {
+  margin: 8px 0 0;
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 31.5px;
+  color: var(--text-color);
+}
+
+/* CTA — WKND yellow button (link is not auto-decorated to .button here) */
+.carousel .carousel-slide .carousel-slide-content p:last-child {
+  margin-top: 18px;
+}
+
+.carousel .carousel-slide .carousel-slide-content a {
+  display: inline-block;
+  padding: 14px 35px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.carousel .carousel-slide .carousel-slide-content a:hover,
+.carousel .carousel-slide .carousel-slide-content a:focus-visible {
+  background-color: var(--accent-color-hover);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* --- Indicator dots — centered below content --- */
 .carousel .carousel-slide-indicators {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
+  gap: 0;
+  margin: 0;
+  padding: 16px 0;
+  background-color: transparent;
   line-height: 0;
 }
 
 .carousel .carousel-slide-indicator button {
-  width: 24px;
-  height: 24px;
-  margin: 0;
+  width: 10px;
+  height: 10px;
+  margin: 0 7px;
   padding: 0;
+  border: 0;
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: rgb(175 175 175);
   transition: background-color 0.2s;
 }
 
 .carousel .carousel-slide-indicator button:disabled,
 .carousel .carousel-slide-indicator button:hover,
 .carousel .carousel-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: rgb(0 0 0 / 80%);
 }
 
+/* --- Navigation arrows — minimal black chevrons, bottom-right --- */
 .carousel .carousel-navigation-buttons {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
+  inset: auto 16px 10px auto;
+  transform: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  z-index: 1;
+  gap: 18px;
+  z-index: 2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 26px;
+  height: 24px;
   margin: 0;
-  border-radius: 50%;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
-  transition: background-color 0.2s;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: rgb(0 0 0);
+  cursor: pointer;
 }
 
 .carousel .carousel-navigation-buttons button:hover,
 .carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: transparent;
+  color: rgb(0 0 0);
 }
 
 .carousel .carousel-navigation-buttons button::after {
@@ -122,8 +194,8 @@
   border: 2px solid;
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 11px;
+  width: 11px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
@@ -135,19 +207,23 @@
   left: calc(50% - 2px);
 }
 
-@media (width >= 600px) {
-  .carousel .carousel-navigation-buttons {
-    left: 24px;
-    right: 24px;
+/* --- Desktop --- */
+@media (width >= 900px) {
+  .carousel .carousel-slide .carousel-slide-image img {
+    height: min(44vw, 640px);   /* ~640px at 1440px wide */
+    min-height: 400px;
   }
 
+  /* white box, centered to content width, pulled up over the image */
   .carousel .carousel-slide .carousel-slide-content {
-    --slide-content-width: calc((100% - 184px) / 2);
-
-    margin: 92px;
+    max-width: var(--content-max-width);
+    margin: -180px auto 0;
+    padding: 8px 28px 28px;
+    background-color: #fff;
   }
 
-  .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
-    --slide-content-width: auto;
+  .carousel .carousel-navigation-buttons {
+    right: 24px;
+    bottom: 12px;
   }
 }

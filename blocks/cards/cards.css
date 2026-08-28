@@ -1,27 +1,87 @@
+/* Block: cards — WKND article/adventure card grid.
+ * Values extracted from wknd.site .image-list.list computed styles.
+ * Card: borderless, image on top, uppercase Source Sans Pro title + uppercase description.
+ * Degrades gracefully for the no-image related-articles list (title + date, no image).
+ */
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 32px 14px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  /* borderless card — no background, border, radius or shadow (matches source) */
+  background-color: transparent;
+  text-align: left;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
-}
-
+/* image on top */
 .cards .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cards .cards-card-image img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 13 / 10;
   object-fit: cover;
+  border-radius: 0;
+}
+
+/* card body */
+.cards .cards-card-body {
+  margin: 0;
+}
+
+/* title — Source Sans Pro, uppercase, dark (overrides global h3 serif/blue-link) */
+.cards .cards-card-body h3 {
+  margin: 12px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.cards .cards-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+/* description / date — uppercase, muted grey */
+.cards .cards-card-body p {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+/* when a card has no image (related-articles list), body sits flush — no empty gap */
+.cards > ul > li:not(:has(.cards-card-image)) .cards-card-body h3 {
+  margin-top: 0;
+}
+
+/* tablet: two per row */
+@media (width >= 600px) {
+  .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktop: four per row (matches source Recent Articles / adventures grids) */
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

@@ -64,6 +64,40 @@ var CustomImportScript = (() => {
 
   // tools/importer/parsers/cards.js
   function parse2(element, { document: document2 }) {
+    const listItems = Array.from(element.querySelectorAll(".cmp-list__item"));
+    if (listItems.length) {
+      const cells2 = [];
+      listItems.forEach((item) => {
+        const link = item.querySelector(".cmp-list__item-link, a");
+        const title = item.querySelector('.cmp-list__item-title, [class*="title"]');
+        const date = item.querySelector('.cmp-list__item-date, [class*="date"]');
+        const content = [];
+        const titleText = title ? (title.textContent || "").trim() : link ? (link.textContent || "").trim() : "";
+        if (titleText) {
+          const heading = document2.createElement("h3");
+          if (link && link.getAttribute("href")) {
+            const a = document2.createElement("a");
+            a.href = link.getAttribute("href");
+            a.textContent = titleText;
+            heading.append(a);
+          } else {
+            heading.textContent = titleText;
+          }
+          content.push(heading);
+        }
+        if (date && (date.textContent || "").trim()) {
+          const p = document2.createElement("p");
+          p.textContent = (date.textContent || "").trim();
+          content.push(p);
+        }
+        if (content.length) cells2.push([content]);
+      });
+      if (cells2.length) {
+        const block2 = WebImporter.Blocks.createBlock(document2, { name: "cards", cells: cells2 });
+        element.replaceWith(block2);
+        return;
+      }
+    }
     const items = Array.from(
       element.querySelectorAll(".cmp-image-list__item, li")
     );
