@@ -149,6 +149,18 @@ export default async function decorate(block) {
     });
   }
 
+  // Add a search box to the main bar (WKND has an inline search on the right).
+  // The control (input) is built here per the nav.plain.html contract — copy
+  // lives in the fragment, form controls are created in JS.
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const search = document.createElement('div');
+    search.className = 'nav-search';
+    search.innerHTML = `<span class="nav-search-icon"></span>
+      <input type="search" aria-label="Search" placeholder="SEARCH">`;
+    navTools.append(search);
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -162,8 +174,18 @@ export default async function decorate(block) {
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
+  // Lift the utility links (Sign In + EN-US) into a black bar above the main nav.
+  // The tools fragment section wraps its paragraphs in a default-content-wrapper.
+  const utilityBar = document.createElement('div');
+  utilityBar.className = 'nav-utility';
+  const utilityLinks = navTools
+    ? navTools.querySelectorAll(':scope > p, :scope > .default-content-wrapper > p')
+    : [];
+  utilityLinks.forEach((p) => utilityBar.append(p));
+
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
+  if (utilityBar.childElementCount) navWrapper.append(utilityBar);
   navWrapper.append(nav);
   block.append(navWrapper);
 }
