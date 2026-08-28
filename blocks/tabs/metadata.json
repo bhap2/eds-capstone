@@ -1,0 +1,39 @@
+{
+  "variantName": "tabs",
+  "baseBlock": "tabs",
+  "version": "1.0.0",
+  "created": "2026-08-28T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/adventures/bali-surf-camp.html",
+    "originPage": "WKND adventure detail (Bali Surf Camp)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "content-sections",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "tab label + rich content panel (paragraphs, images, lists) per tab",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "tabCount": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "adventure/product detail pages grouping long-form body content under labeled tabs (Overview, Itinerary, What to Bring)",
+      "any page where related content should be split into user-selectable sections"
+    ],
+    "notSuitableFor": [
+      "single continuous body of content (use default content)",
+      "expandable Q&A where multiple sections open at once (use accordion)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/adventures/bali-surf-camp"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-28T00:00:00.000Z"
+  },
+  "notes": "Created to match the project's plain-named boilerplate convention (cards, columns, hero, carousel are all base-named). Vanilla Block Collection tabs copied verbatim; base '.tabs' classes retained since the block name is unchanged. This is the defining structural block of the adventure-detail template."
+}
