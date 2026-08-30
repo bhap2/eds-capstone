@@ -129,10 +129,21 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+  if (navBrand) {
+    const brandLink = navBrand.querySelector('.button');
+    if (brandLink) {
+      brandLink.className = '';
+      brandLink.closest('.button-container').className = '';
+    }
+    // The WKND logo is a code asset (/icons/wknd-logo.svg). DA rewrites the
+    // fragment's <img src> to about:error, so point it at the served path here.
+    const brandImg = navBrand.querySelector('img');
+    if (brandImg) {
+      brandImg.src = '/icons/wknd-logo.svg';
+      brandImg.setAttribute('loading', 'eager');
+      brandImg.removeAttribute('width');
+      brandImg.removeAttribute('height');
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
@@ -181,7 +192,20 @@ export default async function decorate(block) {
   const utilityLinks = navTools
     ? navTools.querySelectorAll(':scope > p, :scope > .default-content-wrapper > p')
     : [];
-  utilityLinks.forEach((p) => utilityBar.append(p));
+  utilityLinks.forEach((p) => {
+    const link = p.querySelector('a');
+    // Decorate the locale toggle (EN-US) with a US flag + dropdown caret.
+    if (link && /en-us/i.test(link.textContent.trim())) {
+      p.classList.add('nav-locale');
+      const flag = document.createElement('span');
+      flag.className = 'nav-locale-flag';
+      link.prepend(flag);
+      const caret = document.createElement('span');
+      caret.className = 'nav-locale-caret';
+      link.append(caret);
+    }
+    utilityBar.append(p);
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
