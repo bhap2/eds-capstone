@@ -67,6 +67,21 @@
   color: #696969;
 }
 
+/* image-card grid: title clamps to 2 lines, description truncates to 1 line
+   with ellipsis — matches WKND (white-space: nowrap on .cmp-image-list__item-description). */
+.cards > ul > li:has(.cards-card-image) .cards-card-body h3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.cards > ul > li:has(.cards-card-image) .cards-card-body p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* when a card has no image (related-articles list), body sits flush — no empty gap */
 .cards > ul > li:not(:has(.cards-card-image)) .cards-card-body h3 {
   margin-top: 0;

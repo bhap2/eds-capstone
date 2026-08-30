@@ -150,10 +150,12 @@ function decorateButtons(main) {
       if (new URL(a.href).href === new URL(text, window.location).href) return;
     } catch { /* continue */ }
 
-    // require authored formatting for buttonization
     const strong = a.closest('strong');
     const em = a.closest('em');
-    if (!strong && !em) return;
+
+    // A plain link (no strong/em) inside a block is left alone — the block's
+    // own CSS styles its CTAs. Only default-content plain links become buttons.
+    if (!strong && !em && a.closest('.block')) return;
 
     p.className = 'button-wrapper';
     a.className = 'button';
@@ -164,9 +166,13 @@ function decorateButtons(main) {
     } else if (strong) {
       a.classList.add('primary');
       strong.replaceWith(a);
-    } else {
+    } else if (em) {
       a.classList.add('secondary');
       em.replaceWith(a);
+    } else {
+      // Standalone default-content link = section call-to-action (WKND
+      // "All Articles" / "All Trips" / "read our articles") → primary button.
+      a.classList.add('primary');
     }
   });
 }
