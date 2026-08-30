@@ -305,6 +305,9 @@ header .nav-utility p {
 }
 
 header .nav-utility a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: #fff;
   text-decoration: none;
 }
@@ -312,6 +315,24 @@ header .nav-utility a:any-link {
 header .nav-utility a:hover {
   color: var(--accent-color);
   text-decoration: none;
+}
+
+/* locale toggle: US flag + dropdown caret */
+header .nav-utility .nav-locale-flag {
+  display: inline-block;
+  width: 22px;
+  height: 14px;
+  background: url('/icons/flag-us.svg') center / cover no-repeat;
+  border-radius: 1px;
+}
+
+header .nav-utility .nav-locale-caret {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border: solid currentcolor;
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-2px) rotate(45deg);
 }
 
 /* tools (search box) */
