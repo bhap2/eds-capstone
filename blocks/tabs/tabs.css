@@ -1,58 +1,75 @@
+/* stylelint-disable no-descending-specificity */
+
+/* WKND tabs — filled active tab (dark bg / white text), uppercase strip, no divider.
+   Values extracted from wknd.site computed styles (.cmp-tabs). */
+
 .tabs .tabs-list {
   display: flex;
-  gap: 0.5ch;
-  max-width: 100%;
-  font-size: var(--body-font-size-xs);
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
   overflow-x: auto;
 }
 
-@media (width >= 600px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-s);
-  }
-}
-
-@media (width >= 900px) {
-  .tabs .tabs-list {
-    font-size: var(--body-font-size-m);
-  }
-}
-
-.tabs .tabs-list button {
-  flex: 0 0 max-content;
+.tabs .tabs-list button.tabs-tab {
+  box-sizing: border-box;
+  flex: 0 0 auto;
   margin: 0;
-  border: 1px solid #dadada;
+  border: 0;
+  border-bottom: 1px solid transparent;
   border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
-  text-overflow: unset;
-  overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: normal;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.tabs .tabs-list button p {
+.tabs .tabs-list button.tabs-tab p {
   margin: 0;
 }
 
+.tabs .tabs-list button.tabs-tab:hover {
+  background-color: var(--light-color);
+}
 
-.tabs .tabs-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
-  cursor: initial;
+.tabs .tabs-list button.tabs-tab[aria-selected='true'] {
+  background-color: var(--dark-color);
+  color: var(--background-color);
+  cursor: default;
+}
+
+.tabs .tabs-list button.tabs-tab[aria-selected='true']:hover {
+  background-color: var(--dark-color);
 }
 
 .tabs .tabs-panel {
-  margin-top: -1px;
-  padding: 24px;
-  border: 1px solid #dadada;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text-color);
   overflow: auto;
 }
 
 .tabs .tabs-panel[aria-hidden='true'] {
   display: none;
+}
+
+.tabs .tabs-panel > div > p {
+  margin: 0 0 13.5px;
+}
+
+.tabs .tabs-panel img {
+  max-width: 100%;
+  height: auto;
 }
