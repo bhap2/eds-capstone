@@ -9,12 +9,13 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px 14px;
 }
 
 .cards > ul > li {
   /* borderless card — no background, border, radius or shadow (matches source) */
+  min-width: 0; /* allow the card to shrink below its content's intrinsic width */
   background-color: transparent;
   text-align: left;
 }
@@ -34,6 +35,7 @@
 /* card body */
 .cards .cards-card-body {
   margin: 0;
+  min-width: 0; /* let the nowrap description ellipsis clip within the card */
 }
 
 /* title — Source Sans Pro, uppercase, dark (overrides global h3 serif/blue-link) */
@@ -90,13 +92,13 @@
 /* tablet: two per row */
 @media (width >= 600px) {
   .cards > ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 /* desktop: four per row (matches source Recent Articles / adventures grids) */
 @media (width >= 900px) {
   .cards > ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
