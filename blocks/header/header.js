@@ -194,6 +194,10 @@ export default async function decorate(block) {
     : [];
   utilityLinks.forEach((p) => {
     const link = p.querySelector('a');
+    // decorateButtons (run on the fragment) turns these standalone links into
+    // .button primary — undo that; utility links are plain text, not buttons.
+    p.classList.remove('button-wrapper');
+    if (link) link.classList.remove('button', 'primary', 'secondary', 'accent');
     // Decorate the locale toggle (EN-US) with a US flag + dropdown caret.
     if (link && /en-us/i.test(link.textContent.trim())) {
       p.classList.add('nav-locale');

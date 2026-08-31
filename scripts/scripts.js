@@ -153,9 +153,11 @@ function decorateButtons(main) {
     const strong = a.closest('strong');
     const em = a.closest('em');
 
-    // A plain link (no strong/em) inside a block is left alone — the block's
-    // own CSS styles its CTAs. Only default-content plain links become buttons.
-    if (!strong && !em && a.closest('.block')) return;
+    // A plain link (no strong/em) is only buttonized when it is a standalone
+    // section call-to-action in main page content. Skip plain links inside a
+    // block (the block styles its own CTAs) and inside the header/footer/nav
+    // fragments (utility links, footer nav — not buttons).
+    if (!strong && !em && (a.closest('.block') || a.closest('header, footer, nav'))) return;
 
     p.className = 'button-wrapper';
     a.className = 'button';
