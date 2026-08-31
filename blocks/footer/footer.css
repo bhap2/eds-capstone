@@ -98,22 +98,46 @@ footer .footer h4 {
 footer .footer .section:nth-child(2) p {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 20px;
+  gap: 8px;
   margin: 0;
 }
 
-footer .footer .section:nth-child(2) p a:any-link {
-  color: #ebebeb;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+/* WKND social buttons: 48x48 light-grey squares with a dark icon glyph */
+footer .footer a.footer-social:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: #ebebeb;
+  color: #202020;
   text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
-footer .footer .section:nth-child(2) p a:hover {
-  color: #fff;
-  text-decoration: underline;
+footer .footer a.footer-social:hover {
+  background-color: var(--accent-color);
+}
+
+footer .footer a.footer-social .footer-social-icon {
+  width: 22px;
+  height: 22px;
+  background-color: currentcolor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+footer .footer a.footer-social-facebook .footer-social-icon {
+  mask-image: url('/icons/facebook.svg');
+}
+
+footer .footer a.footer-social-twitter .footer-social-icon {
+  mask-image: url('/icons/twitter.svg');
+}
+
+footer .footer a.footer-social-instagram .footer-social-icon {
+  mask-image: url('/icons/instagram.svg');
 }
 
 /* ---- fine print (section 3) ---- */

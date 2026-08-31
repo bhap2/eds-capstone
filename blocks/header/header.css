@@ -298,9 +298,9 @@ header .nav-utility {
 
 header .nav-utility p {
   margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
   text-transform: uppercase;
 }
 
@@ -308,7 +308,7 @@ header .nav-utility a:any-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #fff;
+  color: #ebebeb;
   text-decoration: none;
 }
 
