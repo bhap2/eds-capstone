@@ -26,24 +26,28 @@
   padding: 0;
 }
 
+/* Stacked fade (matches source .cmp-carousel): slides overlay each other,
+   only the active one is displayed and it fades in over 0.5s. */
 .carousel .carousel-slides {
-  display: flex;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  overflow: scroll clip;
-}
-
-.carousel .carousel-slides::-webkit-scrollbar {
-  display: none;
+  display: grid;
 }
 
 .carousel .carousel-slide {
-  flex: 0 0 100%;
-  scroll-snap-align: start;
-  display: block;
-  position: relative;
+  grid-area: 1 / 1;   /* stack every slide in the same cell */
+  display: none;
   width: 100%;
   min-height: 0;
+}
+
+.carousel .carousel-slide[aria-hidden='false'] {
+  display: block;
+  animation: carousel-fade-in 0.5s both;
+}
+
+@keyframes carousel-fade-in {
+  from { opacity: 0; }
+
+  to { opacity: 1; }
 }
 
 /* --- Slide image: full-bleed, fixed responsive height --- */
