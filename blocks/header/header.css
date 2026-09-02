@@ -325,10 +325,10 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* utility bar (black top strip): Sign In on the left, flag + EN-US on the
+/* utility bar (black top strip): Sign In + EN-US grouped together on the
    right. The black background is full-width; the content aligns to the same
    centered band as the nav below (max-width band + gutter), so EN-US lines up
-   with the search box and Sign In with the logo, not the viewport edges. */
+   with the search box rather than hugging the viewport edge. */
 header .nav-utility {
   background-color: #000;
   padding: 3px 0;
@@ -336,7 +336,7 @@ header .nav-utility {
 
 header .nav-utility-inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 28px;
   margin: 0 auto;
