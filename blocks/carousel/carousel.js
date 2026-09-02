@@ -38,14 +38,9 @@ export function showSlide(block, slideIndex = 0) {
   const slides = block.querySelectorAll('.carousel-slide');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
   if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
-
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-slides').scrollTo({
-    top: 0,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
+  // Stacked fade (matches source): toggling the active slide's aria-hidden
+  // triggers the CSS fade-in; no horizontal scroll.
+  updateActiveSlide(slides[realSlideIndex]);
 }
 
 function bindEvents(block) {
@@ -65,15 +60,9 @@ function bindEvents(block) {
   block.querySelector('.slide-next').addEventListener('click', () => {
     showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
   });
-
-  const slideObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) updateActiveSlide(entry.target);
-    });
-  }, { threshold: 0.5 });
-  block.querySelectorAll('.carousel-slide').forEach((slide) => {
-    slideObserver.observe(slide);
-  });
+  // No autoplay: the source carousel does not auto-advance (its delay
+  // attribute is present but autoplay is not enabled), so slides only change
+  // on user interaction.
 }
 
 function createSlide(row, slideIndex, carouselId) {
@@ -149,6 +138,9 @@ export default async function decorate(block) {
 
   container.append(slidesWrapper);
   block.prepend(container);
+
+  // Show the first slide (sets aria-hidden/active state for the fade stack).
+  showSlide(block, 0);
 
   if (!isSingleSlide) {
     bindEvents(block);
