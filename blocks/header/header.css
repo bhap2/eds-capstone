@@ -371,36 +371,47 @@ header nav .nav-tools {
   align-items: center;
 }
 
+/* Search — WKND header input: light-grey field with a dark magnifier icon
+   overlaid at the left. Values from wknd.site (.cmp-search--header):
+   194px wide box, input bg rgba(235,235,235,.54), 12px text, dark icon. */
 header nav .nav-search {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background-color: var(--light-color);
+  width: 194px;
+  height: 42px;
+  padding: 0;
 }
 
 header nav .nav-search-icon {
+  position: absolute;
+  left: 14px;
+  z-index: 1;
   width: 16px;
   height: 16px;
   flex: 0 0 16px;
-  background-color: #999;
+  background-color: var(--dark-color);
   mask: url('/icons/search.svg') center / contain no-repeat;
   mask-repeat: no-repeat;
+  pointer-events: none;
 }
 
 header nav .nav-search input {
+  width: 100%;
+  height: 40px;
   border: 0;
-  background: transparent;
+  padding: 1px 14px 1px 40px;
+  background: rgb(235 235 235 / 54%);
   font-family: var(--body-font-family);
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--text-color);
   outline: none;
 }
 
 header nav .nav-search input::placeholder {
-  color: #999;
+  color: #696969;
 }
 
 @media (width >= 900px) {

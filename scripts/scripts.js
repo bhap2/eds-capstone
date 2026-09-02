@@ -146,6 +146,31 @@ function buildContributorAutoBlocks(main) {
 }
 
 /**
+ * Wraps the "Current Adventures" category list (an <ol>/<ul> of category names
+ * that precedes the per-category `.cards` grids) into an `adventure-filter`
+ * block so it decorates into functional filter tabs. Without this the list
+ * renders as plain bullets and every category grid shows at once.
+ * @param {Element} main The container element
+ */
+function buildAdventureFilterAutoBlock(main) {
+  const CATEGORIES = ['all', 'climbing', 'cycling', 'skiing', 'surfing', 'travel'];
+  main.querySelectorAll(':scope > div ol, :scope > div ul').forEach((list) => {
+    if (list.closest('.block')) return;
+    const items = [...list.querySelectorAll(':scope > li')].map((li) => li.textContent.trim().toLowerCase());
+    // Only the adventures filter: a short list matching the category labels,
+    // immediately followed by a .cards grid in the same section.
+    const isFilter = items.length >= 3
+      && items.every((t) => CATEGORIES.includes(t))
+      && (list.parentElement?.querySelector('.cards')
+        || list.closest('.section')?.querySelector('.cards'));
+    if (!isFilter) return;
+
+    const block = buildBlock('adventure-filter', { elems: [list.cloneNode(true)] });
+    list.replaceWith(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -170,6 +195,7 @@ function buildAutoBlocks(main) {
     }
     buildWidgetAutoBlocks(main);
     buildContributorAutoBlocks(main);
+    buildAdventureFilterAutoBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

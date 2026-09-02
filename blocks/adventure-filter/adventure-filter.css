@@ -1,0 +1,36 @@
+/* Adventure filter tabs — WKND "Current Adventures".
+ * Horizontal row of uppercase text tabs; active tab is bold/underlined.
+ * Values approximated from https://wknd.site/us/en/adventures.html. */
+
+.adventure-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 32px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.adventure-filter-tabs button {
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 8px 2px;
+  background: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.adventure-filter-tabs button:hover {
+  color: #000;
+}
+
+.adventure-filter-tabs button.is-active {
+  font-weight: 600;
+  border-bottom-color: var(--accent-color);
+}
