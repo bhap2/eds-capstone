@@ -300,20 +300,15 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* utility bar (black top strip: Sign In left, EN-US right).
-   Source uses a thin strip with 14px horizontal padding. */
+/* utility bar (black top strip): Sign In + EN-US grouped on the right.
+   Thin strip with 14px horizontal padding. */
 header .nav-utility {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   gap: 28px;
   background-color: #000;
   padding: 3px 14px;
-}
-
-/* the locale toggle hugs the right edge; Sign In stays on the left */
-header .nav-utility .nav-locale {
-  margin-left: auto;
 }
 
 header .nav-utility p {
