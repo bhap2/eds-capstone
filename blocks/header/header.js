@@ -186,9 +186,14 @@ export default async function decorate(block) {
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
 
   // Lift the utility links (Sign In + EN-US) into a black bar above the main nav.
-  // The tools fragment section wraps its paragraphs in a default-content-wrapper.
+  // The bar background is full-width, but its content aligns to the same
+  // centered band as the nav below (so EN-US lines up with the search box,
+  // not the viewport edge). The inner element carries that max-width/gutter.
   const utilityBar = document.createElement('div');
   utilityBar.className = 'nav-utility';
+  const utilityInner = document.createElement('div');
+  utilityInner.className = 'nav-utility-inner';
+  utilityBar.append(utilityInner);
   const utilityLinks = navTools
     ? navTools.querySelectorAll(':scope > p, :scope > .default-content-wrapper > p')
     : [];
@@ -208,7 +213,7 @@ export default async function decorate(block) {
       caret.className = 'nav-locale-caret';
       link.append(caret);
     }
-    utilityBar.append(p);
+    utilityInner.append(p);
   });
 
   // Highlight the nav item for the current page (WKND gives the active
@@ -230,7 +235,7 @@ export default async function decorate(block) {
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
-  if (utilityBar.childElementCount) navWrapper.append(utilityBar);
+  if (utilityInner.childElementCount) navWrapper.append(utilityBar);
   navWrapper.append(nav);
   block.append(navWrapper);
 
