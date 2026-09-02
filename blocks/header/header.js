@@ -216,4 +216,14 @@ export default async function decorate(block) {
   if (utilityBar.childElementCount) navWrapper.append(utilityBar);
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Scroll-shrink: mirror the source, which adds a `scrolly` class to <body>
+  // once the page is scrolled past ~15px. The header CSS then collapses the
+  // tall nav band over 0.5s and adds a drop shadow.
+  const SCROLL_THRESHOLD = 15;
+  const onScroll = () => {
+    document.body.classList.toggle('scrolly', window.scrollY > SCROLL_THRESHOLD);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 }

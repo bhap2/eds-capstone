@@ -58,15 +58,29 @@ header nav[aria-expanded='true'] {
     gap: 0;
     max-width: 1264px;
 
-    /* WKND white bar is a tall, airy band (~172px) with the logo centered */
+    /* WKND white bar is a tall, airy band (~172px) with the logo centered.
+       Animate min-height so the bar can shrink on scroll (see body.scrolly). */
     height: auto;
     min-height: 150px;
     padding: 0 32px;
+    transition: min-height 0.5s;
   }
 
   header nav[aria-expanded='true'] {
     min-height: 150px;
     overflow: visible;
+  }
+
+  /* Scroll-shrink: mirrors the source, which adds body.scrolly past ~15px of
+     scroll and shrinks the header (padding 50/50 -> 15/5, ~80px) over 0.5s
+     with a drop shadow. Here the tall nav band collapses to a compact bar. */
+  body.scrolly header .nav-wrapper {
+    box-shadow: rgb(0 0 0 / 26%) 0 8px 20px 0;
+  }
+
+  body.scrolly header nav,
+  body.scrolly header nav[aria-expanded='true'] {
+    min-height: 90px;
   }
 }
 
