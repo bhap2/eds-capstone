@@ -396,3 +396,160 @@ main .section.dark a:any-link {
     grid-row: 1 / span 2;
   }
 }
+
+/* stylelint-disable no-descending-specificity */
+
+/* Magazine article page: the hero image and breadcrumb run full content-width,
+   then the article body sits in a wide left column with a "SHARE THIS STORY"
+   + related-articles sidebar on the right. Mirrors the source article layout. */
+main > .section.article-page > .article-layout {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (width >= 900px) {
+  main > .section.article-page > .article-layout {
+    display: grid;
+    grid-template-columns: 68% 25%;
+    justify-content: space-between;
+    align-items: start;
+    padding: 0 32px;
+  }
+
+  main > .section.article-page > .article-layout > .article-main,
+  main > .section.article-page > .article-layout > .article-aside {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* "SHARE THIS STORY" sidebar heading */
+.article-aside > h5 {
+  margin: 0 0 8px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* related-articles list in the sidebar: a plain, borderless stack of dated
+   links (the shared cards block renders here without images or thumbnails). */
+.article-aside .cards > ul {
+  display: block;
+  border-top: 2px solid #ebebeb;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-aside .cards > ul > li {
+  border: 0;
+  border-bottom: 2px solid #ebebeb;
+  border-radius: 0;
+  padding: 14px 0;
+}
+
+.article-aside .cards .cards-card-image {
+  display: none;
+}
+
+.article-aside .cards .cards-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+.article-aside .cards .cards-card-body h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.article-aside .cards .cards-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.article-aside .cards .cards-card-body h3 a:hover {
+  color: var(--accent-color);
+}
+
+.article-aside .cards .cards-card-body p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #696969;
+}
+
+/* author bio card at the foot of the article: circular avatar, serif name,
+   uppercase role, social links. */
+.article-bio {
+  margin: 32px 0;
+  padding-top: 24px;
+  border-top: 2px solid #ebebeb;
+}
+
+.article-bio .article-bio-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.article-bio h2 {
+  margin: 12px 0 0;
+  font-size: 24px;
+}
+
+.article-bio p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+/* bio social links: dark icon squares (matching the contributor cards) */
+.article-bio-social {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 0;
+}
+
+a.article-bio-social-link:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--dark-color);
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+a.article-bio-social-link:hover {
+  background-color: var(--accent-color);
+}
+
+.article-bio-social-icon {
+  width: 18px;
+  height: 18px;
+  background-color: currentcolor;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+
+a.article-bio-social-facebook .article-bio-social-icon {
+  mask-image: url('/icons/facebook.svg');
+}
+
+a.article-bio-social-twitter .article-bio-social-icon {
+  mask-image: url('/icons/twitter.svg');
+}
+
+a.article-bio-social-instagram .article-bio-social-icon {
+  mask-image: url('/icons/instagram.svg');
+}
