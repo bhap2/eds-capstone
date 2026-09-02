@@ -343,6 +343,29 @@ function normalizeInternalLinks(main) {
 }
 
 /**
+ * Marks the FAQ-style two-column section. The source FAQs page lays out the
+ * main content (title, image, intro, accordion) in a wide left column and the
+ * "Need more help?" contact block as a narrow right sidebar. That section is
+ * an accordion-faq wrapper with a trailing default-content-wrapper; here we
+ * tag it `faq-layout` and its sidebar so CSS can place them side by side.
+ * @param {Element} main The main container element
+ */
+function decorateFaqLayout(main) {
+  main.querySelectorAll(':scope > .section').forEach((section) => {
+    const accordion = section.querySelector(':scope > .accordion-faq-wrapper');
+    if (!accordion) return;
+    // The sidebar is a default-content-wrapper that follows the accordion.
+    const wrappers = [...section.children];
+    const sidebar = wrappers
+      .slice(wrappers.indexOf(accordion) + 1)
+      .find((el) => el.classList.contains('default-content-wrapper'));
+    if (!sidebar) return;
+    section.classList.add('faq-layout');
+    sidebar.classList.add('faq-sidebar');
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -354,6 +377,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateFaqLayout(main);
   normalizeInternalLinks(main);
 }
 

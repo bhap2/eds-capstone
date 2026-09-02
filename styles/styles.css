@@ -360,3 +360,39 @@ main .section.dark {
 main .section.dark a:any-link {
   color: #fff;
 }
+
+/* FAQ two-column layout: the main content (title, image, intro, accordion)
+   fills a wide left column while the "Need more help?" block sits in a narrow
+   right sidebar. Mirrors the source FAQs page (8/12 + 3/12 grid columns). */
+@media (width >= 900px) {
+  main > .section.faq-layout {
+    display: grid;
+    grid-template-columns: 66.66% 25%;
+    justify-content: space-between;
+    align-items: start;
+    max-width: var(--content-max-width);
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  main > .section.faq-layout > div {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  main > .section.faq-layout > .default-content-wrapper:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  main > .section.faq-layout > .accordion-faq-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  main > .section.faq-layout > .faq-sidebar {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
