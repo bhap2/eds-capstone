@@ -108,6 +108,19 @@ h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
+/* WKND section titles (e.g. "Recent Articles", "Next Adventures",
+   "Where do you want to go?") — a short yellow underline accent beneath the
+   heading. Scoped to standalone default-content headings at section level so
+   article-body / in-block headings are unaffected. */
+main > .section > .default-content-wrapper > h2::after,
+main > .section > .default-content-wrapper > h3::after {
+  content: '';
+  display: block;
+  width: 84px;
+  margin-top: 12px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
 p,
 dl,
 ol,
