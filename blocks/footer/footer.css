@@ -171,9 +171,11 @@ footer .footer .section:last-child a:any-link {
     align-items: center;
     gap: 16px 32px;
 
-    /* center the content within a max-width like the source (content band
-       ~1136px wide); dark bg stays full-width */
-    max-width: 1136px;
+    /* Centered content band that matches the main content (1136px) so the
+       footer aligns with it, while keeping 32px side gutters when the viewport
+       is narrower than the band (prevents content touching the edges). */
+    width: min(1136px, 100% - 64px);
+    max-width: none;
     margin: 0 auto;
     padding: 16px 0 24px;
   }
