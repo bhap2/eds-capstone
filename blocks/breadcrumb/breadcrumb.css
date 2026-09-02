@@ -21,20 +21,27 @@
   align-items: center;
   margin: 0;
   font-family: var(--body-font-family);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
-  color: #696969;
+  text-transform: uppercase;
+  color: var(--text-color);
 }
 
-/* separator between items */
+/* separator between items — a small yellow triangle (matches source glyph) */
 .breadcrumb .breadcrumb-item:not(:first-child)::before {
-  content: '/';
-  margin: 0 10px;
-  color: #969696;
+  content: '';
+  width: 0;
+  height: 0;
+  margin: 0 12px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--accent-color);
 }
 
+/* ancestor links: uppercase, bold, dark (not the default blue link) */
 .breadcrumb .breadcrumb-item a:any-link {
-  color: var(--link-color);
+  color: var(--text-color);
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -42,7 +49,8 @@
   text-decoration: underline;
 }
 
-/* current page */
+/* current page: uppercase, normal weight */
 .breadcrumb .breadcrumb-item-active {
+  font-weight: 400;
   color: var(--text-color);
 }
