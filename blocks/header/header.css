@@ -325,10 +325,10 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* utility bar (black top strip): Sign In + EN-US grouped on the right.
-   The black background is full-width; the content aligns to the same centered
-   band as the nav below (max-width band + gutter), so EN-US lines up with the
-   search box rather than hugging the viewport edge. */
+/* utility bar (black top strip): Sign In + EN-US grouped together on the
+   right. The black background is full-width; the content aligns to the same
+   centered band as the nav below (max-width band + gutter), so EN-US lines up
+   with the search box rather than hugging the viewport edge. */
 header .nav-utility {
   background-color: #000;
   padding: 3px 0;
