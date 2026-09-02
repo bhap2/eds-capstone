@@ -6,14 +6,19 @@
  * Mobile-first; desktop layout in the >=900px query.
  */
 
-/* Full-bleed: escape the section's 1200px max-width */
+/* Full-bleed: escape the section's max-width AND its horizontal padding so the
+   hero image runs edge-to-edge like the source. The section wrapper keeps its
+   padding (per the global rule), so break out with a viewport-width technique. */
 .hero-wrapper {
-  max-width: 100% !important;
-  padding: 0;
+  max-width: none !important;
+  padding: 0 !important;
 }
 
 .hero {
   position: relative;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
   color: var(--text-color);
 }
 
