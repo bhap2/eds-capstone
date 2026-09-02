@@ -180,6 +180,25 @@ function decorateButtons(main) {
 }
 
 /**
+ * Strips the legacy `.html` extension from internal links. Content imported
+ * from wknd.site keeps `/us/en/...html` hrefs, but EDS pages are served
+ * without an extension, so those links 404. Runs on every page so it also
+ * covers already-imported content without a re-import.
+ * @param {Element} main The main container element
+ */
+function normalizeInternalLinks(main) {
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!href) return;
+    // only same-origin / root-relative links ending in .html (ignore anchors, mailto, external)
+    if (/^(https?:)?\/\//i.test(href) && !href.includes(window.location.hostname)) return;
+    if (/\.html($|[?#])/i.test(href)) {
+      a.setAttribute('href', href.replace(/\.html($|[?#])/i, '$1'));
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -191,6 +210,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  normalizeInternalLinks(main);
 }
 
 /**

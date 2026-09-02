@@ -38,6 +38,12 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
+  /* the tall white bar + utility strip need real vertical space so the
+     following content (carousel/hero) doesn't overlap the header */
+  header {
+    height: auto;
+  }
+
   header .nav-wrapper {
     position: relative;
   }
@@ -47,11 +53,15 @@ header nav[aria-expanded='true'] {
     align-items: center;
     gap: 0;
     max-width: 1264px;
+
+    /* WKND white bar is a tall, airy band (~172px) with the logo centered */
+    height: auto;
+    min-height: 150px;
     padding: 0 32px;
   }
 
   header nav[aria-expanded='true'] {
-    min-height: 0;
+    min-height: 150px;
     overflow: visible;
   }
 }
@@ -286,14 +296,19 @@ header nav .nav-sections ul > li > ul > li {
   }
 }
 
-/* utility bar (black top strip: Sign In + EN-US) */
+/* utility bar (black top strip: Sign In left, EN-US right) */
 header .nav-utility {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 28px;
   background-color: #000;
-  padding: 10px 32px;
+  padding: 3px 32px;
+}
+
+/* the locale toggle hugs the right edge; Sign In stays on the left */
+header .nav-utility .nav-locale {
+  margin-left: auto;
 }
 
 header .nav-utility p {
