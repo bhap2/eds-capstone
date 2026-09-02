@@ -95,6 +95,7 @@
   }
 
   .hero .hero-content {
+    box-sizing: border-box;
     max-width: 1192px;
     margin: -180px auto 0;
     padding: 18px 28px;
