@@ -366,6 +366,94 @@ function decorateFaqLayout(main) {
 }
 
 /**
+ * Restructures a magazine article page into the source's two-column layout:
+ * a full-width hero and breadcrumb, then the article body in a wide left
+ * column with a "SHARE THIS STORY" + related-articles sidebar on the right,
+ * and the author bio as a card at the foot of the article. The imported
+ * content arrives as one flat default-content-wrapper (title, body, author
+ * bio, share heading) plus a trailing related-articles cards block.
+ * @param {Element} main The main container element
+ */
+function decorateArticleLayout(main) {
+  const section = [...main.querySelectorAll(':scope > .section')].find((s) => s.querySelector(':scope > .breadcrumb-wrapper')
+    && [...s.querySelectorAll('h5')].some((h) => /share this story/i.test(h.textContent)));
+  if (!section) return;
+
+  // The article copy lives in the default-content-wrapper that holds the H1.
+  const content = [...section.querySelectorAll(':scope > .default-content-wrapper')]
+    .find((w) => w.querySelector('h1'));
+  if (!content) return;
+
+  const h1 = content.querySelector('h1');
+  const cards = section.querySelector(':scope > .cards-wrapper');
+  const shareHeading = [...content.querySelectorAll('h5')].find((h) => /share this story/i.test(h.textContent));
+
+  // Drop the duplicate title (an H3 repeating the H1) the import leaves behind.
+  content.querySelectorAll('h3').forEach((h3) => {
+    if (h3.textContent.trim() === h1.textContent.trim()) h3.remove();
+  });
+
+  // Group the author bio (avatar image, name, role, social links) that trails
+  // the article body into a card. It starts at the H2 whose text matches the
+  // byline (H4 "By <name>") and includes the image immediately before it.
+  const byline = [...content.querySelectorAll('h4')].find((h) => /^by\s+/i.test(h.textContent));
+  const authorName = byline ? byline.textContent.trim().replace(/^by\s+/i, '') : '';
+  const bioHeading = authorName
+    && [...content.querySelectorAll('h2')].find((h) => h.textContent.trim() === authorName);
+  if (bioHeading) {
+    const bio = document.createElement('div');
+    bio.className = 'article-bio';
+    // pull in the avatar image that immediately precedes the name
+    const avatar = bioHeading.previousElementSibling;
+    if (avatar && avatar.querySelector('picture, img')) {
+      avatar.classList.add('article-bio-avatar');
+      bio.append(avatar);
+    }
+    let node = bioHeading;
+    while (node && node !== shareHeading) {
+      const next = node.nextElementSibling;
+      bio.append(node);
+      node = next;
+    }
+    // Turn the trailing Facebook/Twitter/Instagram text links into a row of
+    // dark social icon squares (matching the About Us contributor cards).
+    const socialLinks = [...bio.querySelectorAll('p > a[href]')]
+      .filter((a) => /facebook|twitter|instagram/i.test(a.textContent.trim()));
+    if (socialLinks.length) {
+      const social = document.createElement('div');
+      social.className = 'article-bio-social';
+      socialLinks.forEach((a) => {
+        const network = a.textContent.trim().toLowerCase();
+        a.className = `article-bio-social-link article-bio-social-${network}`;
+        a.setAttribute('aria-label', a.textContent.trim());
+        a.textContent = '';
+        const icon = document.createElement('span');
+        icon.className = 'article-bio-social-icon';
+        a.append(icon);
+        const p = a.closest('p');
+        social.append(a);
+        if (p && !p.textContent.trim() && !p.children.length) p.remove();
+      });
+      bio.append(social);
+    }
+    content.append(bio);
+  }
+
+  // Build the two-column grid: article body (left) + share/related (right).
+  const layout = document.createElement('div');
+  layout.className = 'article-layout';
+  const aside = document.createElement('aside');
+  aside.className = 'article-aside';
+  if (shareHeading) aside.append(shareHeading);
+  if (cards) aside.append(cards);
+
+  content.classList.add('article-main');
+  section.insertBefore(layout, content);
+  layout.append(content, aside);
+  section.classList.add('article-page');
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -378,6 +466,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateButtons(main);
   decorateFaqLayout(main);
+  decorateArticleLayout(main);
   normalizeInternalLinks(main);
 }
 
