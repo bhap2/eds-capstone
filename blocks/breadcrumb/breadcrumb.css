@@ -1,0 +1,56 @@
+/* Breadcrumb — horizontal trail with "/" separators, above the page title.
+ * Values approximated from https://wknd.site (.cmp-breadcrumb). */
+
+.breadcrumb {
+  margin: 0 0 8px;
+}
+
+.breadcrumb ol,
+.breadcrumb ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumb .breadcrumb-item {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* separator between items — a small yellow triangle (matches source glyph) */
+.breadcrumb .breadcrumb-item:not(:first-child)::before {
+  content: '';
+  width: 0;
+  height: 0;
+  margin: 0 12px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--accent-color);
+}
+
+/* ancestor links: uppercase, bold, dark (not the default blue link) */
+.breadcrumb .breadcrumb-item a:any-link {
+  color: var(--text-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.breadcrumb .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+/* current page: uppercase, normal weight */
+.breadcrumb .breadcrumb-item-active {
+  font-weight: 400;
+  color: var(--text-color);
+}

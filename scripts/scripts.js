@@ -171,6 +171,36 @@ function buildAdventureFilterAutoBlock(main) {
 }
 
 /**
+ * Wraps an imported breadcrumb list into a `breadcrumb` block. Detail/article
+ * pages (adventures/*, magazine/*) import their trail as an <ol> whose items
+ * are links plus a final plain-text current page; without a block it renders
+ * as a numbered list. Detected structurally: every item except the last is a
+ * link, the last is plain text, and no item links to a page-relative image/
+ * cards grid (so the adventures category filter is not matched).
+ * @param {Element} main The container element
+ */
+function buildBreadcrumbAutoBlock(main) {
+  main.querySelectorAll(':scope > div > ol, :scope > div > ul').forEach((list) => {
+    if (list.closest('.block')) return;
+    const lis = [...list.querySelectorAll(':scope > li')];
+    if (lis.length < 2) return;
+    // Ancestor items are single links; the final item is the plain-text page.
+    const ancestorsAreLinks = lis.slice(0, -1).every((li) => {
+      const a = li.querySelector(':scope > a');
+      return a && li.textContent.trim() === a.textContent.trim();
+    });
+    const lastIsText = !lis[lis.length - 1].querySelector('a');
+    // Skip the adventures filter list (category labels + a following .cards).
+    const looksLikeFilter = list.closest('.section')?.querySelector('.cards')
+      && lis.every((li) => !li.querySelector('a'));
+    if (!ancestorsAreLinks || !lastIsText || looksLikeFilter) return;
+
+    const block = buildBlock('breadcrumb', { elems: [list.cloneNode(true)] });
+    list.replaceWith(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -194,6 +224,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildBreadcrumbAutoBlock(main);
     buildContributorAutoBlocks(main);
     buildAdventureFilterAutoBlock(main);
   } catch (error) {
