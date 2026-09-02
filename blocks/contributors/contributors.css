@@ -40,23 +40,24 @@
   color: var(--text-color);
 }
 
-/* --- role (uppercase, muted) --- */
+/* --- role (uppercase, semibold) --- */
 .contributors .contributor h5 {
   margin: 6px 0 0;
   font-family: var(--body-font-family);
-  font-weight: 400;
+  font-weight: 600;
   font-size: 14px;
   line-height: 1.5;
-  letter-spacing: 0.5px;
+  letter-spacing: normal;
   text-transform: uppercase;
   color: var(--text-color);
 }
 
-/* --- social icon row --- */
+/* --- social icon row: dark squares butted together (source uses 48px
+   squares with no gap) --- */
 .contributors .contributor-social {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
   margin: 16px 0 0;
 }
 
@@ -64,8 +65,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   background-color: var(--dark-color);
   color: #fff;
   text-decoration: none;
