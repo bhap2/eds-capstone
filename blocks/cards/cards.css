@@ -40,7 +40,7 @@
 
 /* title — Source Sans Pro, uppercase, dark (overrides global h3 serif/blue-link) */
 .cards .cards-card-body h3 {
-  margin: 12px 0 0;
+  margin: 9px 0 0; /* source image-to-title gap */
   font-family: var(--body-font-family);
   font-size: 18px;
   font-weight: 600;
