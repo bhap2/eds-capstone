@@ -188,23 +188,24 @@
   color: rgb(0 0 0);
 }
 
+/* Thin line arrow (shaft + arrowhead), matching the source icon-font glyph.
+   Drawn as a masked box so it stays crisp and inherits the button color. */
 .carousel .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
-  border-bottom: 0;
-  border-left: 0;
-  height: 11px;
-  width: 11px;
   position: absolute;
   top: 50%;
-  left: calc(50% + 2px);
-  transform: translate(-50%, -50%) rotate(-135deg);
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  background-color: currentcolor;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="4" y1="12" x2="20" y2="12"/><polyline points="13,5 20,12 13,19"/></svg>') center / contain no-repeat;
+  mask-repeat: no-repeat;
 }
 
-.carousel .carousel-navigation-buttons button.slide-next::after {
-  transform: translate(-50%, -50%) rotate(45deg);
-  left: calc(50% - 2px);
+.carousel .carousel-navigation-buttons button.slide-prev::after {
+  transform: translate(-50%, -50%) scaleX(-1);
 }
 
 /* --- Desktop --- */
