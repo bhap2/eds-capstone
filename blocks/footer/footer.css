@@ -170,7 +170,12 @@ footer .footer .section:last-child a:any-link {
     flex-flow: row wrap;
     align-items: center;
     gap: 16px 32px;
-    padding: 16px 32px 24px;
+
+    /* center the content within a max-width like the source (content band
+       ~1136px wide); dark bg stays full-width */
+    max-width: 1136px;
+    margin: 0 auto;
+    padding: 16px 0 24px;
   }
 
   /* top row: logo+nav on the left */
