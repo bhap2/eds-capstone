@@ -94,11 +94,12 @@ footer .footer h4 {
   text-transform: uppercase;
 }
 
-/* ---- social links row (section 2 p) ---- */
+/* ---- social links row (section 2 p) ----
+   source renders the three 48px squares adjacent (no gap) as one strip */
 footer .footer .section:nth-child(2) p {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 0;
   margin: 0;
 }
 
