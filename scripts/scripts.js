@@ -103,6 +103,49 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Groups the flat "About Us" contributor content (image + name + role +
+ * social links) into `contributors` profile-grid blocks. The imported content
+ * has no block wrapper, so each contributor renders as a full-bleed image and
+ * buttonized links; this rebuilds it into the source's card grid.
+ * @param {Element} main The container element
+ */
+function buildContributorAutoBlocks(main) {
+  const markers = [...main.querySelectorAll('h2')].filter((h) => /our contributors|wknd guides/i.test(h.textContent));
+  markers.forEach((h2) => {
+    const container = h2.parentElement;
+    if (!container) return;
+    const isGuides = /guides/i.test(h2.textContent);
+
+    // Collect the contributor cards that follow this h2 (up to the next h2).
+    const cards = [];
+    let card = null;
+    let node = h2.nextElementSibling;
+    while (node && node.tagName !== 'H2') {
+      const next = node.nextElementSibling;
+      const isAvatar = node.querySelector && node.querySelector('picture, img');
+      if (isAvatar) {
+        // a new avatar starts a new card
+        card = document.createElement('div');
+        cards.push(card);
+        card.append(node);
+      } else if (card && (node.tagName === 'H3' || node.tagName === 'H5' || node.querySelector('a[href]'))) {
+        card.append(node);
+      }
+      // else: intro paragraph before the first avatar — leave in place
+      node = next;
+    }
+    if (!cards.length) return;
+
+    const block = buildBlock('contributors', cards.map((c) => [{ elems: [...c.childNodes] }]));
+    if (isGuides) block.classList.add('guides');
+    // Insert right after the section's intro paragraph (or the h2).
+    const intro = h2.nextElementSibling && h2.nextElementSibling.tagName === 'P'
+      ? h2.nextElementSibling : h2;
+    intro.after(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -126,6 +169,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildContributorAutoBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
