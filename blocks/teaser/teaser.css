@@ -1,0 +1,113 @@
+/* Teaser — WKND "Members Only" secure teasers on the Magazine page.
+ * The source renders each teaser as a 1/3-width grid column (two/three side
+ * by side): title, description, "Read More" chip, then the image below. Locked
+ * (members-only) teasers get a folded-corner yellow badge with a padlock and
+ * their content is dimmed. Values from https://wknd.site (.cmp-teaser--*). */
+
+.teaser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+/* Each teaser occupies a third of the row (source uses a 4-of-12 grid column),
+   so two teasers sit on the left and the remaining third stays empty. */
+.teaser .teaser-item {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 33.333%;
+  min-width: 0;
+  padding: 0 14px;
+}
+
+.teaser .teaser-item > * {
+  margin: 0;
+}
+
+/* title — uppercase, semibold, dark */
+.teaser .teaser-item h2,
+.teaser .teaser-item h3 {
+  margin: 9px 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* description — muted grey */
+.teaser .teaser-item .teaser-description {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #696969;
+}
+
+/* "Read More" — light-grey chip, uppercase, muted text (not a link here) */
+.teaser .teaser-item .teaser-action {
+  display: inline-block;
+  margin: 12px 0;
+  padding: 7px 14px;
+  background-color: #ebebeb;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #696969;
+  text-decoration: none;
+}
+
+a.teaser-action:hover {
+  color: var(--text-color);
+}
+
+/* image sits below the content */
+.teaser .teaser-item .teaser-image {
+  margin-top: 7px;
+}
+
+.teaser .teaser-item .teaser-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Locked (members-only) teasers: dim the content and add a folded-corner
+   yellow badge with a padlock in the top-left, matching the source. */
+.teaser .teaser-item.teaser-locked .teaser-content {
+  opacity: 0.65;
+}
+
+.teaser .teaser-item.teaser-locked::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  z-index: 2;
+  width: 0;
+  height: 0;
+  border-top: 24px solid var(--accent-color);
+  border-right: 24px solid transparent;
+}
+
+.teaser .teaser-item.teaser-locked::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 19px;
+  z-index: 3;
+  width: 11px;
+  height: 11px;
+  background-color: var(--text-color);
+  mask: url('/icons/lock.svg') center / contain no-repeat;
+}
+
+/* Stack to a single column on narrow viewports. */
+@media (width < 900px) {
+  .teaser {
+    flex-direction: column;
+  }
+
+  .teaser .teaser-item {
+    flex: 1 1 100%;
+  }
+}

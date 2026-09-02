@@ -201,6 +201,48 @@ function buildBreadcrumbAutoBlock(main) {
 }
 
 /**
+ * Groups the flat "Members Only" teasers (Magazine page) into a `teaser` block
+ * so they render as side-by-side cards. The imported content is a run of
+ * heading + description + "Read More" + image after the "Members Only" intro;
+ * without a block each teaser stacks full-width. Each teaser (an h2/h3 and the
+ * paragraphs up to the next heading) becomes one row of the block.
+ * @param {Element} main The container element
+ */
+function buildMembersTeaserAutoBlock(main) {
+  const intro = [...main.querySelectorAll('h2, h3')].find((h) => /members only/i.test(h.textContent));
+  if (!intro) return;
+
+  // Teasers begin at the first heading after the intro's sign-in paragraph.
+  const teasers = [];
+  let current = null;
+  let node = intro.nextElementSibling;
+  while (node) {
+    const next = node.nextElementSibling;
+    if (/^H[2-6]$/.test(node.tagName)) {
+      // A heading that starts a teaser (has following image) opens a new card.
+      current = [];
+      teasers.push(current);
+      current.push(node);
+    } else if (current) {
+      current.push(node);
+    }
+    // else: the sign-in intro paragraph before the first teaser — leave it.
+    node = next;
+  }
+  // Only teasers that carry an image are real cards.
+  const cards = teasers.filter((c) => c.some((el) => el.querySelector && el.querySelector('picture, img')));
+  if (cards.length < 2) return;
+
+  // Anchor before the first card so we can place the block where it sat; the
+  // card element references are then moved into the block by buildBlock.
+  const anchor = cards[0][0].previousElementSibling;
+  const parent = cards[0][0].parentElement;
+  const block = buildBlock('teaser', cards.map((c) => [{ elems: c }]));
+  if (anchor) anchor.after(block);
+  else parent.prepend(block);
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -227,6 +269,7 @@ function buildAutoBlocks(main) {
     buildBreadcrumbAutoBlock(main);
     buildContributorAutoBlocks(main);
     buildAdventureFilterAutoBlock(main);
+    buildMembersTeaserAutoBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
