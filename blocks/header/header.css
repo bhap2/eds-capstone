@@ -229,6 +229,17 @@ header nav .nav-sections ul > li a:hover {
   text-decoration: none;
 }
 
+/* Active page: WKND highlights the current nav item with a yellow chip
+   (accent background, dark text). */
+header nav .nav-sections ul > li.nav-active > a:any-link {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+header nav .nav-sections ul > li.nav-active > a:hover {
+  color: var(--text-color);
+}
+
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
 }

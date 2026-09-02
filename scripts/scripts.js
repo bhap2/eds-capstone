@@ -171,6 +171,31 @@ function buildAdventureFilterAutoBlock(main) {
 }
 
 /**
+ * Wraps an imported breadcrumb list into a `breadcrumb` block. Detail pages
+ * (e.g. adventures/*) import their trail as a leading <ol> whose items are
+ * links plus a final plain-text current page; without a block it renders as a
+ * numbered list. Detected as a list where the first item is a link and it is
+ * the first element in its section.
+ * @param {Element} main The container element
+ */
+function buildBreadcrumbAutoBlock(main) {
+  main.querySelectorAll(':scope > div > ol, :scope > div > ul').forEach((list) => {
+    if (list.closest('.block')) return;
+    const lis = [...list.querySelectorAll(':scope > li')];
+    if (lis.length < 2) return;
+    // First item must be a link; last item must be plain text (current page).
+    const firstIsLink = lis[0].querySelector(':scope > a');
+    const lastIsText = !lis[lis.length - 1].querySelector('a');
+    // Must be the first content node in its section wrapper.
+    const isFirst = list.parentElement && list.parentElement.firstElementChild === list;
+    if (!firstIsLink || !lastIsText || !isFirst) return;
+
+    const block = buildBlock('breadcrumb', { elems: [list.cloneNode(true)] });
+    list.replaceWith(block);
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -194,6 +219,7 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildBreadcrumbAutoBlock(main);
     buildContributorAutoBlocks(main);
     buildAdventureFilterAutoBlock(main);
   } catch (error) {

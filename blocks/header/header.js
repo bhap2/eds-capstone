@@ -211,6 +211,23 @@ export default async function decorate(block) {
     utilityBar.append(p);
   });
 
+  // Highlight the nav item for the current page (WKND gives the active
+  // top-level item a yellow background). Match by path, including nested
+  // detail pages (e.g. /us/en/adventures/bali-surf-camp -> "Adventures").
+  if (navSections) {
+    // Normalize: drop the local `aem up` /content prefix, .html, trailing slash.
+    const norm = (p) => p.replace(/^\/content/, '').replace(/\.html$/, '').replace(/\/$/, '');
+    const here = norm(window.location.pathname);
+    navSections.querySelectorAll('a[href]').forEach((a) => {
+      let path;
+      try { path = norm(new URL(a.href, window.location).pathname); } catch { return; }
+      if (path && path !== '/us/en' && (here === path || here.startsWith(`${path}/`))) {
+        a.closest('li')?.classList.add('nav-active');
+        a.setAttribute('aria-current', 'page');
+      }
+    });
+  }
+
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   if (utilityBar.childElementCount) navWrapper.append(utilityBar);
