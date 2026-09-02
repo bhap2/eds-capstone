@@ -73,8 +73,17 @@ body.appear {
   display: block;
 }
 
+/* Reserve the full two-tier header height on first paint (before the header
+   block's own CSS loads) so the header doesn't jump/resize on load.
+   Matches blocks/header/header.css: 116px mobile, 177px desktop. */
 header {
-  height: var(--nav-height);
+  height: 116px;
+}
+
+@media (width >= 900px) {
+  header {
+    height: 177px;
+  }
 }
 
 header .header,
