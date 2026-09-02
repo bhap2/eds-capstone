@@ -60,29 +60,9 @@ function bindEvents(block) {
   block.querySelector('.slide-next').addEventListener('click', () => {
     showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
   });
-
-  // Auto-advance every 5s (matches source data-cmp-delay="5000"); pause on
-  // hover/focus and when the tab is hidden, per accessibility best practice.
-  const AUTOPLAY_DELAY = 5000;
-  let autoplayTimer = null;
-  const advance = () => showSlide(block, parseInt(block.dataset.activeSlide || '0', 10) + 1);
-  const startAutoplay = () => {
-    if (autoplayTimer) return;
-    autoplayTimer = window.setInterval(advance, AUTOPLAY_DELAY);
-  };
-  const stopAutoplay = () => {
-    window.clearInterval(autoplayTimer);
-    autoplayTimer = null;
-  };
-  block.addEventListener('mouseenter', stopAutoplay);
-  block.addEventListener('mouseleave', startAutoplay);
-  block.addEventListener('focusin', stopAutoplay);
-  block.addEventListener('focusout', startAutoplay);
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAutoplay();
-    else startAutoplay();
-  });
-  startAutoplay();
+  // No autoplay: the source carousel does not auto-advance (its delay
+  // attribute is present but autoplay is not enabled), so slides only change
+  // on user interaction.
 }
 
 function createSlide(row, slideIndex, carouselId) {
