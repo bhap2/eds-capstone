@@ -228,6 +228,7 @@ header nav .nav-sections ul > li a:any-link {
   color: var(--text-color);
 }
 
+/* Mobile hover: the source tints the link text yellow (no chip). */
 header nav .nav-sections ul > li a:hover {
   color: var(--accent-color);
   text-decoration: none;
@@ -306,6 +307,13 @@ header nav .nav-sections ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li a:any-link {
     display: inline-block;
     padding: 15px 17px;
+  }
+
+  /* Desktop hover: the source highlights the item with a yellow chip
+     (accent background, dark text) — same treatment as the active item. */
+  header nav .nav-sections .default-content-wrapper > ul > li > a:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
