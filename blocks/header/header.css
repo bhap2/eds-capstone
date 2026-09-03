@@ -387,8 +387,10 @@ header .nav-utility a:any-link {
   text-decoration: none;
 }
 
+/* Source utility links (Sign In / EN-US) don't change on hover — keep the
+   off-white colour, no yellow, no underline. */
 header .nav-utility a:hover {
-  color: var(--accent-color);
+  color: #ebebeb;
   text-decoration: none;
 }
 
