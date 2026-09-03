@@ -455,6 +455,8 @@ header nav .nav-search input::placeholder {
 
 @media (width >= 900px) {
   header nav .nav-tools {
-    margin-left: 24px;
+    /* 28px gap between the last nav item ("About Us") and the search box,
+       matching the source — a 24px gap pushed the whole nav cluster 4px right. */
+    margin-left: 28px;
   }
 }
