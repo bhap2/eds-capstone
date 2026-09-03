@@ -201,14 +201,14 @@ button.button {
   margin: 0;
   border: 2px solid var(--accent-color);
   border-radius: 0;
-  padding: 12px 35px;
+  padding: 16px 32px; /* source section CTA (.cmp-button) 16px/32px */
   background-color: var(--accent-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.5px;
+  line-height: 1.5;
+  letter-spacing: normal;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
@@ -550,10 +550,11 @@ main .article-main blockquote {
   color: #696969;
 }
 
-/* bio social links: dark icon squares (matching the contributor cards) */
+/* bio social links: dark icon squares butted together into one bar (source:
+   48x48, no gap, no hover flip, off-white glyphs) — matches contributor cards */
 .article-bio-social {
   display: flex;
-  gap: 8px;
+  gap: 0;
   margin: 16px 0 0;
 }
 
@@ -561,21 +562,16 @@ a.article-bio-social-link:any-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   background-color: var(--dark-color);
-  color: #fff;
+  color: #ebebeb;
   text-decoration: none;
-  transition: background-color 0.2s ease;
-}
-
-a.article-bio-social-link:hover {
-  background-color: var(--accent-color);
 }
 
 .article-bio-social-icon {
-  width: 18px;
-  height: 18px;
+  width: 17.5px;
+  height: 17.5px;
   background-color: currentcolor;
   mask-position: center;
   mask-repeat: no-repeat;
