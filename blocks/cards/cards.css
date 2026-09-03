@@ -6,11 +6,21 @@
 
 .cards > ul {
   list-style: none;
-  margin: 0;
+
+  /* 32px trailing space below the card grid — the source card list carries a
+     32px bottom margin on its last row (li { margin: 0 0 32px }), which keeps a
+     following section CTA (e.g. "All Articles") from butting against the last
+     card's text. A grid row-gap only spaces between rows, so add it explicitly. */
+  margin: 0 0 32px;
   padding: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 32px 14px;
+}
+
+/* related-articles sidebar has its own list rhythm — no trailing margin */
+.article-aside .cards > ul {
+  margin-bottom: 0;
 }
 
 .cards > ul > li {
