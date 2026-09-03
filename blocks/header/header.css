@@ -355,15 +355,19 @@ header .nav-utility {
 }
 
 header .nav-utility-inner {
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 28px;
   margin: 0 auto;
-  max-width: 1164px;
+  max-width: 1136px;
 
-  /* Align EN-US to the same band edge as the search box below it. */
-  padding: 0 14px;
+  /* Source insets the Sign In / EN-US cluster 73px inside the content band's
+     right edge (where the search box ends) — it does NOT run flush to the band
+     edge. Left keeps the 14px gutter; right adds the 73px inset. Verified: at
+     1280px EN-US right = 1135, at 1520px = 1255 (matches source). */
+  padding: 0 73px 0 14px;
 }
 
 header .nav-utility p {
