@@ -113,3 +113,80 @@
     margin: 0;
   }
 }
+
+/* --- Video-background variant (.hero.video) ---
+ * The image row becomes a full-bleed autoplaying background video and the
+ * content card is overlaid, centered, with a light scrim for legibility. */
+.hero.video {
+  position: relative;
+}
+
+.hero.video .hero-image-video {
+  position: relative;
+  line-height: 0;
+}
+
+.hero.video .hero-video {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background-color: var(--dark-color);
+}
+
+.hero.video .hero-video-media,
+.hero.video .hero-video-poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* poster sits behind the video for first paint / reduced-motion fallback */
+.hero.video .hero-video-poster {
+  position: absolute;
+  inset: 0;
+  line-height: 0;
+}
+
+.hero.video .hero-video-media {
+  z-index: 1;
+}
+
+/* overlay the content card centered on top of the video */
+.hero.video .hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 24px;
+  background-color: rgb(32 32 32 / 35%); /* legibility scrim */
+  color: #fff;
+  text-align: center;
+}
+
+.hero.video .hero-content h1,
+.hero.video .hero-content h2,
+.hero.video .hero-content h3,
+.hero.video .hero-content p {
+  color: #fff;
+  margin: 0 0 12px;
+}
+
+@media (width >= 900px) {
+  .hero.video .hero-video {
+    height: 640px;
+  }
+
+  /* keep the overlay card sized to the video, not pulled up like the image variant */
+  .hero.video .hero-content {
+    min-height: 0;
+    max-width: none;
+    margin: 0;
+  }
+}

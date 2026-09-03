@@ -1,0 +1,89 @@
+/* Testimonials block — a grid of cards, each with a circular avatar, a quote,
+ * and an attribution name. Uses the site's WKND brand tokens. */
+
+.testimonials .testimonials-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.testimonials .testimonials-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  text-align: center;
+}
+
+/* circular avatar */
+.testimonials .testimonials-avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 0 16px;
+}
+
+.testimonials .testimonials-avatar picture,
+.testimonials .testimonials-avatar img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* quote — serif, matches the site's heading font for editorial pull-quotes */
+.testimonials .testimonials-quote {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.testimonials .testimonials-quote p {
+  margin: 0 0 8px;
+}
+
+.testimonials .testimonials-quote p:last-child {
+  margin-bottom: 0;
+}
+
+/* attribution name — uppercase, semibold, matches contributor role style */
+.testimonials .testimonials-name {
+  margin: auto 0 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* accent underline flourish above the name (WKND yellow) */
+.testimonials .testimonials-name::before {
+  content: '';
+  display: block;
+  width: 40px;
+  margin: 0 auto 12px;
+  border-top: 2px solid var(--accent-color);
+}
+
+/* tablet: two per row */
+@media (width >= 600px) {
+  .testimonials .testimonials-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* desktop: three per row */
+@media (width >= 900px) {
+  .testimonials .testimonials-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
