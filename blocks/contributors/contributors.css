@@ -10,6 +10,8 @@
 }
 
 .contributors .contributor {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   text-align: center;
 }
@@ -58,7 +60,13 @@
   display: flex;
   justify-content: center;
   gap: 0;
+
+  /* Push the social bar to the bottom of the card so all cards in a row keep
+     their icon bars on the same line even when a role wraps to two lines
+     (e.g. "Artist | Photographer | Traveler"). 16px min gap above. */
   margin: 16px 0 0;
+  margin-top: auto;
+  padding-top: 16px;
 }
 
 /* Dark square, no hover state — the source social buttons don't change on
