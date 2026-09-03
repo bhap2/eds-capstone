@@ -70,7 +70,33 @@
   line-height: 2.5; /* WKND body copy leading (matches article/FAQ) */
 }
 
+/* Related-trips list: source uses list-style:none with a small arrow marker
+   (wknd-icon-font) and a tight 12px indent, not the default disc/40px. */
+.tabs .tabs-panel > div ul {
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tabs .tabs-panel > div ul li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 12px;
+  line-height: 36px;
+}
+
+.tabs .tabs-panel > div ul li::before {
+  content: '\2023'; /* triangular bullet — approximates source arrow glyph */
+  position: absolute;
+  left: 0;
+  color: var(--text-color);
+  font-size: 12px;
+  line-height: 36px;
+}
+
 .tabs .tabs-panel img {
+  display: block;
   max-width: 100%;
   height: auto;
+  margin: 7px 0; /* source .cmp img vertical rhythm */
 }
