@@ -448,7 +448,11 @@ header nav .nav-search input {
   border: 0;
   padding: 1px 14px 1px 40px;
   background: rgb(235 235 235 / 54%);
-  font-family: var(--body-font-family);
+
+  /* Source search field uses the system Arial stack (not the site's Source Sans
+     Pro), which renders the 12px placeholder smaller/lighter. Match it so the
+     SEARCH text is the same visual size as the source. */
+  font-family: arial, 'Helvetica Neue', helvetica, sans-serif;
   font-size: 12px;
   letter-spacing: normal;
   text-transform: uppercase;

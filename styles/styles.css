@@ -360,6 +360,17 @@ main > .section:has(+ .section.cards-container) + .section.cards-container {
   margin-top: 0;
 }
 
+/* Section-CTA separator: the source renders a full-width 1px #ebebeb rule after
+   the "All Articles" / "All Trips" section buttons (a Core Components separator
+   the importer drops). Recreate it as a rule below the button-wrapper in a
+   cards section so the horizontal line reappears before the next heading. */
+main > .section.cards-container .default-content-wrapper > .button-wrapper::after {
+  content: '';
+  display: block;
+  margin: 55px 0 9px;
+  border-top: 1px solid #ebebeb;
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
