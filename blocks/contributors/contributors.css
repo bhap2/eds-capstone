@@ -70,13 +70,13 @@
   width: 48px;
   height: 48px;
   background-color: var(--dark-color);
-  color: #fff;
+  color: #ebebeb; /* source glyph colour rgb(235,235,235), not pure white */
   text-decoration: none;
 }
 
 .contributors .contributor-social-icon {
-  width: 18px;
-  height: 18px;
+  width: 17.5px; /* source icon-font glyph renders at 17.5px */
+  height: 17.5px;
   background-color: currentcolor;
   mask-position: center;
   mask-repeat: no-repeat;
