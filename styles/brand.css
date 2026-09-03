@@ -22,6 +22,11 @@
 
   /* spacing */
   --section-padding: 40px;
-  --content-max-width: 1164px;
+
+  /* Source content band: 1136px inner width with 32px section gutters, so a
+     block's text edge sits 192px from the viewport edge at 1520px — matching
+     the header (which reaches the same 1136/192 via its own 14px padding).
+     A 1164 value here pushed every body/footer block 14px left of the header. */
+  --content-max-width: 1136px;
   --nav-height: 89px;
 }
