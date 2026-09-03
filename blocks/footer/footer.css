@@ -116,13 +116,9 @@ footer .footer a.footer-social:any-link {
   transition: background-color 0.2s ease;
 }
 
-footer .footer a.footer-social:hover {
-  background-color: var(--accent-color);
-}
-
 footer .footer a.footer-social .footer-social-icon {
-  width: 22px;
-  height: 22px;
+  width: 17.5px; /* source footer glyph renders at 17.5px, matching header/contributor icons */
+  height: 17.5px;
   background-color: currentcolor;
   mask-position: center;
   mask-repeat: no-repeat;
