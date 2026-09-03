@@ -96,6 +96,12 @@
 
   .hero .hero-content {
     box-sizing: border-box;
+
+    /* The source card is 180px tall and pulled up 180px so its bottom sits
+       flush with the image bottom (content top-aligned, empty space fills to
+       the image edge). Matching min-height keeps that flush alignment rather
+       than leaving an image strip below the card. */
+    min-height: 180px;
     max-width: 1192px;
     margin: -180px auto 0;
     padding: 18px 28px;
