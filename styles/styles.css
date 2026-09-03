@@ -575,10 +575,12 @@ main .article-main blockquote::after {
   text-decoration: none;
 }
 
-/* source keeps the link blue on hover (no accent flip) — only base state differs */
+/* Related-articles ("SHARE THIS STORY") links stay static on hover — keep the
+   blue title, no underline and no background/case change (the migrated list is
+   not the source's yellow-fill "up next" widget, so no hover flip). */
 .article-aside .cards .cards-card-body h3 a:hover {
   color: var(--link-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .article-aside .cards .cards-card-body p {
