@@ -16,6 +16,39 @@
  * => a single 2-column content row.
  */
 export default function parse(element, { document }) {
+  // --- Definition-list variant (adventure-detail meta) ---
+  // The adventure-detail template reuses this parser for the content-fragment
+  // metadata, which is a <dl> of label/value pairs (Activity/Surfing, Trip
+  // Length/6 Days, Price/5000.0, …) rather than a featured teaser. Emit one
+  // block row per pair: [label, value]. Without this the teaser logic below
+  // finds no .cmp-teaser__* nodes and the whole meta is dropped.
+  const isDefinitionList = element.tagName === 'DL'
+    || element.matches?.('dl, .cmp-contentfragment__elements')
+    || element.querySelector(':scope > .cmp-contentfragment__element, :scope dt');
+  if (isDefinitionList) {
+    const pairs = [];
+    // Pairs may be wrapped (…__element > dt+dd) or bare dt/dd siblings.
+    const wrappers = element.querySelectorAll('.cmp-contentfragment__element, dl > div');
+    const scopes = wrappers.length ? [...wrappers] : [element];
+    scopes.forEach((scope) => {
+      const dts = [...scope.querySelectorAll('dt, .cmp-contentfragment__element-title')];
+      const dds = [...scope.querySelectorAll('dd, .cmp-contentfragment__element-value')];
+      dts.forEach((dt, i) => {
+        const label = (dt.textContent || '').trim();
+        const value = ((dds[i] && dds[i].textContent) || '').trim();
+        if (label) pairs.push([label, value]);
+      });
+    });
+    if (pairs.length) {
+      const block = WebImporter.Blocks.createBlock(document, { name: 'columns', cells: pairs });
+      element.replaceWith(block);
+      return;
+    }
+    // no pairs found — unwrap rather than emit an empty block
+    element.replaceWith(...element.childNodes);
+    return;
+  }
+
   // Text content column.
   const contentCell = [];
   const pretitle = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"]');
