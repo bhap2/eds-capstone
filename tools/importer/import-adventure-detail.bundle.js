@@ -70,6 +70,30 @@ var CustomImportScript = (() => {
 
   // tools/importer/parsers/columns.js
   function parse2(element, { document: document2 }) {
+    const isDefinitionList = element.tagName === "DL"
+      || (element.matches && element.matches("dl, .cmp-contentfragment__elements"))
+      || element.querySelector(":scope > .cmp-contentfragment__element, :scope dt");
+    if (isDefinitionList) {
+      const pairs = [];
+      const wrappers = element.querySelectorAll(".cmp-contentfragment__element, dl > div");
+      const scopes = wrappers.length ? [...wrappers] : [element];
+      scopes.forEach((scope) => {
+        const dts = [...scope.querySelectorAll("dt, .cmp-contentfragment__element-title")];
+        const dds = [...scope.querySelectorAll("dd, .cmp-contentfragment__element-value")];
+        dts.forEach((dt, i) => {
+          const label = (dt.textContent || "").trim();
+          const value = ((dds[i] && dds[i].textContent) || "").trim();
+          if (label) pairs.push([label, value]);
+        });
+      });
+      if (pairs.length) {
+        const block2 = WebImporter.Blocks.createBlock(document2, { name: "columns", cells: pairs });
+        element.replaceWith(block2);
+        return;
+      }
+      element.replaceWith(...element.childNodes);
+      return;
+    }
     const contentCell = [];
     const pretitle = element.querySelector('.cmp-teaser__pretitle, [class*="pretitle"]');
     if (pretitle) contentCell.push(pretitle);
