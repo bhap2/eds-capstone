@@ -548,12 +548,25 @@ main .article-main blockquote::after {
   list-style: none;
 }
 
+/* Source "up next" item: a tall (120px) block with a 5px light-grey left
+   border and centered content; fills accent-yellow on hover with a dark left
+   border. */
 .article-aside .cards > ul > li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 120px;
   border: 0;
   border-left: 5px solid #ebebeb;
   border-radius: 0;
   margin: 0 0 24px;
   padding: 8px 16px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.article-aside .cards > ul > li:hover {
+  background-color: var(--accent-color);
+  border-left-color: var(--dark-color);
 }
 
 .article-aside .cards .cards-card-image {
@@ -570,19 +583,15 @@ main .article-main blockquote::after {
   font-family: var(--body-font-family); /* source related-list links are sans-serif, not Asar */
   font-size: 18px;
   font-weight: 400;
-  text-transform: none; /* source related links are title-case, not uppercase like grid cards */
+  line-height: 1.5;
+  text-transform: uppercase; /* source up-next titles are uppercase */
 }
 
-.article-aside .cards .cards-card-body h3 a:any-link {
-  color: var(--link-color); /* source renders these as blue links */
-  text-decoration: none;
-}
-
-/* Related-articles ("SHARE THIS STORY") links stay static on hover — keep the
-   blue title, no underline and no background/case change (the migrated list is
-   not the source's yellow-fill "up next" widget, so no hover flip). */
+/* Source up-next titles are dark #202020, not link-blue, and don't underline
+   or change colour on hover (the yellow fill comes from the li). */
+.article-aside .cards .cards-card-body h3 a:any-link,
 .article-aside .cards .cards-card-body h3 a:hover {
-  color: var(--link-color);
+  color: var(--text-color);
   text-decoration: none;
 }
 
