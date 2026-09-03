@@ -305,6 +305,12 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections .default-content-wrapper > ul > li a:any-link {
     display: inline-block;
+
+    /* 18px line-height + 15px top/bottom padding = 48px link box, matching the
+       source (its inline link renders at 48px, not the 21px line-height + 30px
+       padding an inline-block would give). Keeps the active/hover chip height
+       identical to the source. */
+    line-height: 18px;
     padding: 15px 17px;
   }
 
