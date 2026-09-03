@@ -347,6 +347,19 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+/* A heading that introduces a card grid (e.g. "Recent Articles", "Where do you
+   want to go?") is authored in the section before the cards, so the two 40px
+   section margins collapse to a 40px gap. The source keeps the heading tight to
+   its cards — only the heading's own 13.5px bottom margin. Collapse the
+   inter-section margins so just that gap remains. */
+main > .section:has(+ .section.cards-container) {
+  margin-bottom: 0;
+}
+
+main > .section:has(+ .section.cards-container) + .section.cards-container {
+  margin-top: 0;
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;

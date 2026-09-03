@@ -348,20 +348,26 @@ header nav .nav-sections ul > li > ul > li {
    centered band as the nav below (max-width band + gutter), so EN-US lines up
    with the search box rather than hugging the viewport edge. */
 header .nav-utility {
-  background-color: #000;
-  padding: 3px 0;
+  /* source utility strip is a 25px band: 21px content + 2px padding each side,
+     on a dark #202020 (not pure black) background */
+  background-color: var(--dark-color);
+  padding: 2px 0;
 }
 
 header .nav-utility-inner {
+  box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 28px;
   margin: 0 auto;
-  max-width: 1164px;
+  max-width: 1136px;
 
-  /* Align EN-US to the same band edge as the search box below it. */
-  padding: 0 14px;
+  /* Source insets the Sign In / EN-US cluster 73px inside the content band's
+     right edge (where the search box ends) — it does NOT run flush to the band
+     edge. Left keeps the 14px gutter; right adds the 73px inset. Verified: at
+     1280px EN-US right = 1135, at 1520px = 1255 (matches source). */
+  padding: 0 73px 0 14px;
 }
 
 header .nav-utility p {
