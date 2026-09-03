@@ -142,3 +142,14 @@
     padding: 63px 36px 36px;
   }
 }
+
+/* ===========================================================================
+   Adventure-detail meta: the content-fragment carries a duplicate title
+   (.cmp-contentfragment__title -> an <h3> repeating the page H1). The source
+   hides it (only the H1 shows above the Activity/Trip Length/… meta rows).
+   Hide that stray h3 in the meta section (carousel-container + columns-container,
+   which is unique to the adventure-detail template).
+   =========================================================================== */
+main > .section.carousel-container.columns-container > .default-content-wrapper h3 {
+  display: none;
+}
