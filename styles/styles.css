@@ -449,14 +449,24 @@ main > .section.article-page > .article-layout {
 }
 
 /* Pull-quote — WKND renders article blockquotes as a large serif display
-   (Asar 36px/54px), full-bleed (no left indent), with even padding. */
+   (Asar 36px/54px) on a light-grey panel (.cmp-text--quote bg #ebebeb), with
+   even padding and a short yellow underline accent beneath the quote. */
 main .article-main blockquote {
   margin: 0 0 13.5px;
-  padding: 14px;
+  padding: 32px;
+  background-color: #ebebeb;
   font-family: var(--heading-font-family);
   font-size: 36px;
   line-height: 1.5;
   color: var(--text-color);
+}
+
+main .article-main blockquote::after {
+  content: '';
+  display: block;
+  width: 84px;
+  margin-top: 12px;
+  border-bottom: 2px solid var(--accent-color);
 }
 
 .article-main blockquote p {
@@ -475,11 +485,11 @@ main .article-main blockquote {
   color: var(--text-color);
 }
 
-/* related-articles list in the sidebar: a plain, borderless stack of dated
-   links (the shared cards block renders here without images or thumbnails). */
+/* related-articles list in the sidebar: a plain stack of dated links, each
+   with a short grey left-accent bar (source .cmp-list__item: border-left 5px
+   #ebebeb, 8px/16px padding) — no top/bottom dividers. */
 .article-aside .cards > ul {
   display: block;
-  border-top: 2px solid #ebebeb;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -487,9 +497,10 @@ main .article-main blockquote {
 
 .article-aside .cards > ul > li {
   border: 0;
-  border-bottom: 2px solid #ebebeb;
+  border-left: 5px solid #ebebeb;
   border-radius: 0;
-  padding: 14px 0;
+  margin: 0 0 24px;
+  padding: 8px 16px;
 }
 
 .article-aside .cards .cards-card-image {
