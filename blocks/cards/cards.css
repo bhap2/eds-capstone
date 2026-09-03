@@ -38,20 +38,21 @@
   min-width: 0; /* let the nowrap description ellipsis clip within the card */
 }
 
-/* title — Source Sans Pro, uppercase, dark (overrides global h3 serif/blue-link) */
+/* title — Source Sans Pro, title-case, weight 400, blue link (matches source
+   .cmp-image-list__item-title: 18px/27px, text-transform none, rgb(0,69,255)) */
 .cards .cards-card-body h3 {
   margin: 9px 0 0; /* source image-to-title gap */
   font-family: var(--body-font-family);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
   letter-spacing: normal;
-  text-transform: uppercase;
-  color: var(--text-color);
+  text-transform: none;
+  color: var(--link-color);
 }
 
 .cards .cards-card-body h3 a:any-link {
-  color: var(--text-color);
+  color: var(--link-color);
   text-decoration: none;
 }
 
