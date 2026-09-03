@@ -503,13 +503,13 @@ main .article-main blockquote {
 
 .article-aside .cards .cards-card-body h3 {
   margin: 0;
-  font-family: var(--heading-font-family);
+  font-family: var(--body-font-family); /* source related-list links are sans-serif, not Asar */
   font-size: 18px;
   font-weight: 400;
 }
 
 .article-aside .cards .cards-card-body h3 a:any-link {
-  color: var(--text-color);
+  color: var(--link-color); /* source renders these as blue links */
   text-decoration: none;
 }
 
