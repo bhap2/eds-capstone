@@ -1,6 +1,29 @@
+import { createOptimizedPicture } from '../../scripts/aem.js';
+
 // Static aria-label strings (this project's aem.js does not export fetchPlaceholders)
 async function fetchPlaceholders() {
   return {};
+}
+
+/**
+ * Optimise a slide's image. The first slide is the LCP element, so its image
+ * loads eagerly (with fetchpriority high) and skips lazy-loading; later slides
+ * stay lazy. Breakpoints cap the file at ~1600px on wide screens (the band is
+ * ~1136px) and serve ~750px to phones, instead of the flat 2000px fallback.
+ */
+function optimiseSlideImage(slide, isFirst) {
+  const img = slide.querySelector('img');
+  if (!img) return;
+  const picture = img.closest('picture');
+  const optimised = createOptimizedPicture(img.src, img.alt, isFirst, [
+    { media: '(min-width: 900px)', width: '1600' },
+    { width: '750' },
+  ]);
+  if (isFirst) {
+    const newImg = optimised.querySelector('img');
+    newImg.setAttribute('fetchpriority', 'high');
+  }
+  (picture || img).replaceWith(optimised);
 }
 
 function updateActiveSlide(slide) {
@@ -124,6 +147,7 @@ export default async function decorate(block) {
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
+    optimiseSlideImage(slide, idx === 0);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
