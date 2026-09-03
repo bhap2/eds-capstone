@@ -360,9 +360,8 @@ header .nav-utility-inner {
   margin: 0 auto;
   max-width: 1164px;
 
-  /* Reserve the same right space as the nav's search cluster (14px gutter +
-     ~78px empty column) so EN-US lines up with the search box below. */
-  padding: 0 92px 0 14px;
+  /* Align EN-US to the same band edge as the search box below it. */
+  padding: 0 14px;
 }
 
 header .nav-utility p {
@@ -457,9 +456,5 @@ header nav .nav-search input::placeholder {
 @media (width >= 900px) {
   header nav .nav-tools {
     margin-left: 24px;
-
-    /* The source reserves ~one empty grid column to the right of the search
-       box, so the nav + search cluster doesn't run to the band's edge. */
-    margin-right: 78px;
   }
 }
