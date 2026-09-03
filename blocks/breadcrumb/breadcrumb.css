@@ -12,30 +12,41 @@
   align-items: center;
   gap: 0;
   margin: 0;
-  padding: 0;
+
+  /* source list carries a 12px top/right offset (.cmp-breadcrumb__list) */
+  padding: 12px 12px 0 0;
   list-style: none;
 }
 
 .breadcrumb .breadcrumb-item {
   display: flex;
   align-items: center;
+
+  /* source item padding: 10px 5px (first item drops the left padding) */
+  padding: 10px 5px;
   margin: 0;
   font-family: var(--body-font-family);
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   text-transform: uppercase;
   color: var(--text-color);
 }
 
-/* separator between items — a small yellow triangle (matches source glyph) */
+.breadcrumb .breadcrumb-item:first-child {
+  padding-left: 0;
+}
+
+/* separator between items — a small yellow triangle (matches source glyph).
+ * Left spacing comes from the item's 5px padding; only a small right margin
+ * is needed, mirroring the source glyph's 0 5px 0 0 padding. */
 .breadcrumb .breadcrumb-item:not(:first-child)::before {
   content: '';
   width: 0;
   height: 0;
-  margin: 0 12px;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 7px solid var(--accent-color);
+  margin: 0 5px 0 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid var(--accent-color);
 }
 
 /* ancestor links: uppercase, bold, dark (not the default blue link) */
@@ -49,9 +60,8 @@
   text-decoration: underline;
 }
 
-/* current page: uppercase, normal weight, with the source's 10px/5px padding */
+/* current page: uppercase, normal weight (padding inherited from item) */
 .breadcrumb .breadcrumb-item-active {
-  padding: 10px 5px;
   font-weight: 400;
   color: var(--text-color);
 }

@@ -9,13 +9,15 @@
 
 .accordion-faq .accordion-faq-item {
   border: 0;
-  border-bottom: 2px solid #ebebeb;
 }
 
-/* question header row */
+/* question header row — the #ebebeb rule sits under the QUESTION only, so it
+   stays put under the label when the item is open (matches the source, where
+   the divider is a border-bottom on the button, not the whole item). */
 .accordion-faq .accordion-faq-item summary.accordion-faq-item-label {
   position: relative;
-  padding: 13px 40px 13px 8px;
+  padding: 13px 40px 13px 13px;
+  border-bottom: 2px solid #ebebeb;
   list-style: none;
   cursor: pointer;
   font-family: var(--body-font-family);
@@ -65,21 +67,22 @@
   opacity: 0;
 }
 
-/* answer panel */
+/* answer panel — source panel padding is 7px 0 0 7px; text sits below the
+   question divider. Answer body font 14px / line-height 1.75 (24.5px). */
 .accordion-faq .accordion-faq-item .accordion-faq-item-body {
-  padding: 7px 8px 16px;
+  padding: 7px 7px 13.5px;
   font-family: var(--body-font-family);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.75;
   color: var(--text-color);
 }
 
 .accordion-faq .accordion-faq-item .accordion-faq-item-body p {
   margin: 0;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.75;
 }
 
 .accordion-faq .accordion-faq-item .accordion-faq-item-body p + p {
-  margin-top: 0.8em;
+  margin-top: 13.5px;
 }

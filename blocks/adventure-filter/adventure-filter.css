@@ -5,8 +5,8 @@
 .adventure-filter-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 32px;
+  gap: 0;
+  margin: 18px 0;
 }
 
 .adventure-filter-tabs button {
