@@ -49,8 +49,9 @@
   text-decoration: underline;
 }
 
-/* current page: uppercase, normal weight */
+/* current page: uppercase, normal weight, with the source's 10px/5px padding */
 .breadcrumb .breadcrumb-item-active {
+  padding: 10px 5px;
   font-weight: 400;
   color: var(--text-color);
 }
