@@ -354,7 +354,10 @@ main > .section {
 main > .section > div {
   max-width: var(--content-max-width);
   margin: auto;
-  padding: 0 24px;
+
+  /* Source uses a 14px content gutter on mobile (verified on adventures +
+     about-us at 412px); widens to 32px at the desktop breakpoint below. */
+  padding: 0 14px;
 }
 
 main > .section:first-of-type {
