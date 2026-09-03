@@ -219,9 +219,11 @@
     min-height: 400px;
   }
 
-  /* white box, centered to content width, pulled up over the image */
+  /* white box, pulled up over the image. The source hero card is 1192px wide
+     (not the 1136 body band), so its heading sits at left 72 (44px centering +
+     28px padding). Using the narrower band pushed the heading to left 100. */
   .carousel .carousel-slide .carousel-slide-content {
-    max-width: var(--content-max-width);
+    max-width: 1192px;
     margin: -180px auto 0;
     padding: 8px 28px 28px;
     background-color: #fff;

@@ -47,9 +47,9 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
-  /* reserve space for the fixed header: 27px utility strip + 150px nav band */
+  /* reserve space for the fixed header: 25px utility strip + 169px nav band */
   header {
-    height: 177px;
+    height: 194px;
   }
 
   header nav {
@@ -57,21 +57,22 @@ header nav[aria-expanded='true'] {
     align-items: center;
     gap: 0;
 
-    /* Match the source header grid (~1164px band, 14px gutters) so the logo
-       sits at the page gutter (~32px) and the nav + search cluster lines up
+    /* Match the source header grid (1136px band, 14px gutters) so the logo
+       sits at the page gutter (~72px) and the nav + search cluster lines up
        with the source rather than spreading to the viewport edge. */
-    max-width: 1164px;
+    max-width: 1136px;
 
-    /* WKND white bar is a tall, airy band (~172px) with the logo centered.
-       Animate min-height so the bar can shrink on scroll (see body.scrolly). */
+    /* WKND white bar is a tall, airy band: the source is 169px (50px vertical
+       padding around the 69px logo row). Animate min-height so the bar can
+       shrink on scroll (see body.scrolly). */
     height: auto;
-    min-height: 150px;
+    min-height: 169px;
     padding: 0 14px;
     transition: min-height 0.5s;
   }
 
   header nav[aria-expanded='true'] {
-    min-height: 150px;
+    min-height: 169px;
     overflow: visible;
   }
 
