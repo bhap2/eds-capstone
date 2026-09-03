@@ -69,7 +69,7 @@ footer .footer ul li {
 
 footer .footer ul li a:any-link {
   display: inline-block;
-  padding: 8px 17px;
+  padding: 15px 17px; /* source footer nav link box (matches header nav) */
   color: #ebebeb;
   font-size: 14px;
   font-weight: 400;
@@ -171,10 +171,10 @@ footer .footer .section:last-child a:any-link {
     align-items: center;
     gap: 16px 32px;
 
-    /* Centered content band that matches the main content (1136px) so the
+    /* Centered content band that matches the main content (1164px) so the
        footer aligns with it, while keeping 32px side gutters when the viewport
        is narrower than the band (prevents content touching the edges). */
-    width: min(1136px, 100% - 64px);
+    width: min(1164px, 100% - 64px);
     max-width: none;
     margin: 0 auto;
     padding: 16px 0 24px;

@@ -67,6 +67,7 @@
 
 .tabs .tabs-panel > div > p {
   margin: 0 0 13.5px;
+  line-height: 2.5; /* WKND body copy leading (matches article/FAQ) */
 }
 
 .tabs .tabs-panel img {

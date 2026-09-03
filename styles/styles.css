@@ -49,10 +49,10 @@
     --body-font-size-s: 16px;
     --body-font-size-xs: 14px;
 
-    /* heading sizes — desktop scale from wknd.site */
-    --heading-font-size-xxl: 54px;
+    /* heading sizes — desktop scale from wknd.site (h1 40px, h3 24px) */
+    --heading-font-size-xxl: 40px;
     --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
+    --heading-font-size-l: 24px;
     --heading-font-size-m: 22px;
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
@@ -102,8 +102,9 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  /* WKND headings: ~27px above, 13.5px below (fixed, not em-scaled). */
+  margin-top: 27px;
+  margin-bottom: 13.5px;
   font-family: var(--heading-font-family);
   font-weight: 400;
   line-height: 1.5;
@@ -154,6 +155,16 @@ pre {
 
 main > div {
   margin: 40px 16px;
+}
+
+/* Body copy in default-content sections uses WKND's loose 2.5x leading and a
+   bottom-only paragraph margin (source: 18px text -> 45px line-height, margin
+   0 0 13.5px). Scoped to default content so block paragraphs — cards, header,
+   footer, hero, teaser — keep their own tighter line-heights. */
+main > .section > .default-content-wrapper p,
+main > .section.article-page .article-main > p {
+  margin: 0 0 13.5px;
+  line-height: 2.5;
 }
 
 input,
@@ -425,6 +436,35 @@ main > .section.article-page > .article-layout {
   }
 }
 
+/* Article byline ("By <author>") — source renders this h4 as uppercase
+   sans-serif semibold, not the global serif heading. */
+.article-main h4 {
+  margin: 0 0 13.5px;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* Pull-quote — WKND renders article blockquotes as a large serif display
+   (Asar 36px/54px), full-bleed (no left indent), with even padding. */
+main .article-main blockquote {
+  margin: 0 0 13.5px;
+  padding: 14px;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.article-main blockquote p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 /* "SHARE THIS STORY" sidebar heading */
 .article-aside > h5 {
   margin: 0 0 8px;
@@ -505,7 +545,7 @@ main > .section.article-page > .article-layout {
 
 .article-bio p {
   margin: 4px 0 0;
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
   color: #696969;
 }
