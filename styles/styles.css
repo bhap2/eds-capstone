@@ -554,6 +554,7 @@ main .article-main blockquote::after {
   font-family: var(--body-font-family); /* source related-list links are sans-serif, not Asar */
   font-size: 18px;
   font-weight: 400;
+  text-transform: none; /* source related links are title-case, not uppercase like grid cards */
 }
 
 .article-aside .cards .cards-card-body h3 a:any-link {
@@ -561,8 +562,10 @@ main .article-main blockquote::after {
   text-decoration: none;
 }
 
+/* source keeps the link blue on hover (no accent flip) — only base state differs */
 .article-aside .cards .cards-card-body h3 a:hover {
-  color: var(--accent-color);
+  color: var(--link-color);
+  text-decoration: underline;
 }
 
 .article-aside .cards .cards-card-body p {
@@ -574,9 +577,18 @@ main .article-main blockquote::after {
 /* author bio card at the foot of the article: circular avatar, serif name,
    uppercase role, social links. */
 .article-bio {
+  display: flex;
+  align-items: center;
+  gap: 24px;
   margin: 32px 0;
   padding-top: 24px;
-  border-top: 2px solid #ebebeb;
+  border-top: 1px solid #ebebeb;
+}
+
+.article-bio .article-bio-avatar {
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 0;
 }
 
 .article-bio .article-bio-avatar img {
@@ -586,8 +598,14 @@ main .article-main blockquote::after {
   object-fit: cover;
 }
 
+/* name + role sit beside the avatar; social is pushed to the far right */
+.article-bio-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .article-bio h2 {
-  margin: 12px 0 0;
+  margin: 0;
   font-size: 24px;
 }
 
@@ -602,8 +620,11 @@ main .article-main blockquote::after {
    48x48, no gap, no hover flip, off-white glyphs) — matches contributor cards */
 .article-bio-social {
   display: flex;
+  flex: 0 0 auto;
   gap: 0;
-  margin: 16px 0 0;
+
+  /* push the icon bar to the far right of the bio row (source layout) */
+  margin: 0 0 0 auto;
 }
 
 a.article-bio-social-link:any-link {
