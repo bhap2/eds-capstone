@@ -201,7 +201,7 @@ button.button {
   margin: 0;
   border: 2px solid var(--accent-color);
   border-radius: 0;
-  padding: 16px 32px; /* source section CTA (.cmp-button) 16px/32px */
+  padding: 11.5px 32px; /* source section CTA renders a 48px-tall box (21px line + 23px pad + 4px border) */
   background-color: var(--accent-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
