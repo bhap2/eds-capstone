@@ -374,13 +374,25 @@ main > .section:has(+ .section.cards-container) + .section.cards-container {
 }
 
 /* Section-CTA separator: the source renders a full-width 1px #ebebeb rule after
-   the "All Articles" / "All Trips" section buttons (a Core Components separator
-   the importer drops). Recreate it as a rule below the button-wrapper in a
-   cards section so the horizontal line reappears before the next heading. */
+   the "All Articles" / "All Trips" section buttons. EDS has no content primitive
+   for a visible rule (an authored <hr> becomes an invisible section break), so
+   recreate it as a rule below the button-wrapper in a cards section. Source
+   spacing: ~64px from the button down to the line. */
 main > .section.cards-container .default-content-wrapper > .button-wrapper::after {
   content: '';
   display: block;
-  margin: 55px 0 9px;
+  margin: 64px 0 0;
+  border-top: 1px solid #ebebeb;
+}
+
+/* "Members Only" divider: the source draws a full-width rule between the
+   "Members Only" intro and the locked members teaser. That intro is a
+   default-content-wrapper immediately followed by the teaser-wrapper, so add
+   a rule below it (source: ~49px above the line, ~74px below to the teaser). */
+main > .section .default-content-wrapper:has(+ .teaser-wrapper)::after {
+  content: '';
+  display: block;
+  margin: 49px 0 40px;
   border-top: 1px solid #ebebeb;
 }
 
