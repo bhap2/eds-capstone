@@ -231,12 +231,13 @@ button.button {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+/* Source CTA buttons keep their yellow on hover — no colour shift. */
 a.button:hover,
 a.button:focus-visible,
 button.button:hover,
 button.button:focus-visible {
-  border-color: var(--accent-color-hover);
-  background-color: var(--accent-color-hover);
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
   color: var(--text-color);
   text-decoration: none;
 }
@@ -258,8 +259,8 @@ a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--accent-color-hover);
-  background-color: var(--accent-color-hover);
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
   color: var(--text-color);
 }
 
@@ -574,10 +575,12 @@ main .article-main blockquote::after {
   text-decoration: none;
 }
 
-/* source keeps the link blue on hover (no accent flip) — only base state differs */
+/* Related-articles ("SHARE THIS STORY") links stay static on hover — keep the
+   blue title, no underline and no background/case change (the migrated list is
+   not the source's yellow-fill "up next" widget, so no hover flip). */
 .article-aside .cards .cards-card-body h3 a:hover {
   color: var(--link-color);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .article-aside .cards .cards-card-body p {

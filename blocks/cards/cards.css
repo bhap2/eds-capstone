@@ -68,8 +68,10 @@
   text-decoration: none;
 }
 
+/* Source card titles don't underline on hover — keep them static. */
 .cards .cards-card-body h3 a:hover {
-  text-decoration: underline;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 /* description / date — uppercase, muted grey */
