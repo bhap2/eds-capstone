@@ -1,0 +1,87 @@
+/* Article List block — index-driven card grid with a "Load more" button.
+ * Card visuals mirror the site's cards block (borderless, image on top,
+ * uppercase title + muted description) using WKND brand tokens. */
+
+.article-list .article-list-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 14px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.article-list .article-list-card {
+  min-width: 0;
+  background-color: transparent;
+  text-align: left;
+}
+
+.article-list .article-list-card-image {
+  display: block;
+  line-height: 0;
+}
+
+.article-list .article-list-card-image img {
+  width: 100%;
+  aspect-ratio: 13 / 10;
+  object-fit: cover;
+}
+
+.article-list .article-list-card-body h3 {
+  margin: 9px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.article-list .article-list-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.article-list .article-list-card-body h3 a:hover {
+  text-decoration: underline;
+}
+
+.article-list .article-list-card-body p {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: #696969;
+
+  /* clamp the description to one line with an ellipsis, matching the cards block */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* "Load more" — centered, uses the global button styling */
+.article-list .article-list-more {
+  display: block;
+  margin: 8px auto 0;
+}
+
+.article-list .article-list-empty {
+  margin: 0;
+  color: #696969;
+}
+
+/* tablet: two per row */
+@media (width >= 600px) {
+  .article-list .article-list-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* desktop: four per row (matches the site's article grids) */
+@media (width >= 900px) {
+  .article-list .article-list-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
