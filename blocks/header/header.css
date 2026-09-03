@@ -314,6 +314,14 @@ header nav .nav-sections ul > li > ul > li {
     padding: 15px 17px;
   }
 
+  /* Desktop hover: the source highlights the item with a yellow chip
+     (accent background + dark text) — not yellow text. Override the mobile
+     yellow-text hover here. */
+  header nav .nav-sections .default-content-wrapper > ul > li > a:hover {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
     display: none;
     position: relative;
