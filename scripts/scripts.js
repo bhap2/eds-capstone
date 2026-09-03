@@ -409,15 +409,20 @@ function decorateArticleLayout(main) {
       avatar.classList.add('article-bio-avatar');
       bio.append(avatar);
     }
+    // Group the name + role into an info block so the bio can lay out as a
+    // single row (avatar | name/role | … | social), matching the source.
+    const info = document.createElement('div');
+    info.className = 'article-bio-info';
     let node = bioHeading;
     while (node && node !== shareHeading) {
       const next = node.nextElementSibling;
-      bio.append(node);
+      info.append(node);
       node = next;
     }
+    bio.append(info);
     // Turn the trailing Facebook/Twitter/Instagram text links into a row of
     // dark social icon squares (matching the About Us contributor cards).
-    const socialLinks = [...bio.querySelectorAll('p > a[href]')]
+    const socialLinks = [...info.querySelectorAll('p > a[href]')]
       .filter((a) => /facebook|twitter|instagram/i.test(a.textContent.trim()));
     if (socialLinks.length) {
       const social = document.createElement('div');
