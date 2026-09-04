@@ -83,6 +83,13 @@
   text-align: left;
 }
 
+/* Adventure-detail carousel slides are image-only — their content cell is
+   empty. Don't render the empty white overlay card for those (it only applies
+   to the homepage hero carousel, whose slides carry a heading + CTA). */
+.carousel .carousel-slide .carousel-slide-content:not(:has(h1, h2, h3, h4, h5, h6, p, a, img)) {
+  display: none;
+}
+
 /* Heading — Asar 36px/54px (matches WKND title) */
 .carousel .carousel-slide .carousel-slide-content h2 {
   margin: 18px 0 0;
