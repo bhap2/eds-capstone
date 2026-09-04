@@ -35,6 +35,12 @@
   line-height: 0;
 }
 
+/* the image is wrapped in an anchor (whole thumbnail is clickable) */
+.cards .cards-card-image a {
+  display: block;
+  line-height: 0;
+}
+
 .cards .cards-card-image img {
   width: 100%;
   aspect-ratio: 13 / 10;
