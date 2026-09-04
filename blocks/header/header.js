@@ -112,9 +112,13 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // load nav as fragment — metadata-independent dual-fetch:
-  // /content/nav first (local aem up serves content under /content), then /nav (DA/EDS root)
-  const fragment = (await loadFragment('/content/nav')) || (await loadFragment('/nav'));
+  // load nav as fragment — metadata-independent dual-fetch. Probe the path that
+  // exists for the current environment FIRST so we don't emit a guaranteed 404:
+  // local `aem up` serves fragments under /content, deployed aem.page/aem.live
+  // serve them at the DA/EDS root (/nav).
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const paths = isLocal ? ['/content/nav', '/nav'] : ['/nav', '/content/nav'];
+  const fragment = (await loadFragment(paths[0])) || (await loadFragment(paths[1]));
 
   // decorate nav DOM
   block.textContent = '';

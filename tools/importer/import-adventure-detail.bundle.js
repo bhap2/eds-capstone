@@ -136,7 +136,7 @@ var CustomImportScript = (() => {
       const contentCell = [];
       if (contentSource) {
         const nodes = Array.from(
-          contentSource.querySelectorAll("p, ul, ol, img")
+          contentSource.querySelectorAll("h1, h2, h3, h4, h5, h6, p, ul, ol, img")
         );
         nodes.forEach((node) => {
           const covered = contentCell.some((added) => added.contains(node));

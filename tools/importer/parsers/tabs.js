@@ -49,10 +49,12 @@ export default function parse(element, { document }) {
     }
 
     // Collect meaningful content nodes (skip empty AEM grid scaffolding).
+    // Include headings — the Overview panel opens with an <h2> intro
+    // ("Let us take you on a spectacular…") that must survive the import.
     const contentCell = [];
     if (contentSource) {
       const nodes = Array.from(
-        contentSource.querySelectorAll('p, ul, ol, img'),
+        contentSource.querySelectorAll('h1, h2, h3, h4, h5, h6, p, ul, ol, img'),
       );
       nodes.forEach((node) => {
         // Skip nodes already covered by an ancestor we added.

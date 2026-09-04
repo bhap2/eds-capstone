@@ -5,9 +5,13 @@ import { loadFragment } from '../fragment/fragment.js';
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  // load footer as fragment — metadata-independent dual-fetch:
-  // /content/footer first (local aem up), then /footer (DA/EDS root)
-  const fragment = (await loadFragment('/content/footer')) || (await loadFragment('/footer'));
+  // load footer as fragment — metadata-independent dual-fetch. Probe the path
+  // that exists for the current environment FIRST so we don't emit a guaranteed
+  // 404: local `aem up` serves fragments under /content, deployed
+  // aem.page/aem.live serve them at the DA/EDS root (/footer).
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const paths = isLocal ? ['/content/footer', '/footer'] : ['/footer', '/content/footer'];
+  const fragment = (await loadFragment(paths[0])) || (await loadFragment(paths[1]));
 
   // decorate footer DOM
   block.textContent = '';
