@@ -99,9 +99,10 @@
   text-decoration: none;
 }
 
+/* Source CTA keeps its yellow on hover — no colour shift. */
 .section.grey .columns > div > div:not(.columns-img-col) a:hover,
 .section.grey .columns > div > div:not(.columns-img-col) a:focus-visible {
-  background-color: var(--accent-color-hover);
+  background-color: var(--accent-color);
   color: var(--text-color);
   text-decoration: none;
 }
