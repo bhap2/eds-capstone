@@ -82,10 +82,11 @@
   text-decoration: none;
 }
 
+/* Source CTA keeps its yellow on hover — no colour shift. */
 .hero a.button:hover,
 .hero a.button:focus-visible {
   border: 0;
-  background-color: var(--accent-color-hover);
+  background-color: var(--accent-color);
   color: var(--text-color);
 }
 
