@@ -117,8 +117,13 @@ footer .footer a.footer-social:any-link {
 }
 
 footer .footer a.footer-social .footer-social-icon {
-  width: 17.5px; /* source footer glyph renders at 17.5px, matching header/contributor icons */
-  height: 17.5px;
+  /* The source social glyphs are an icon font sized so the visible ink is
+     ~18-19px tall inside the 48px square. Our mask SVGs use a 24-unit viewBox
+     with a lot of internal padding, so `contain` into a 17.5px box only painted
+     ~13-14px of glyph — visibly smaller than the source. A 24px box scales the
+     glyph ink up to match (Instagram ~19.7px, Facebook ~17.5px tall). */
+  width: 24px;
+  height: 24px;
   background-color: currentcolor;
   mask-position: center;
   mask-repeat: no-repeat;
