@@ -666,8 +666,11 @@ a.article-bio-social-link:any-link {
 }
 
 .article-bio-social-icon {
-  width: 17.5px;
-  height: 17.5px;
+  /* 24px box (not 17.5px) so the mask-SVG glyph ink scales up to match the
+     source wknd-icon-font glyph (~18-19px visible) — same fix as footer /
+     contributor social icons. */
+  width: 24px;
+  height: 24px;
   background-color: currentcolor;
   mask-position: center;
   mask-repeat: no-repeat;
