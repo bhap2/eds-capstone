@@ -20,5 +20,21 @@ export default function decorate(block) {
     { media: '(min-width: 900px)', width: '500' },
     { width: '600' },
   ])));
+  // Make the card image clickable — the source links the thumbnail to the same
+  // article as the title. The title link lives in the card body; mirror its
+  // href onto the image by wrapping the picture in an anchor.
+  ul.querySelectorAll('li').forEach((li) => {
+    const imageCell = li.querySelector('.cards-card-image');
+    const picture = imageCell && imageCell.querySelector('picture');
+    const titleLink = li.querySelector('.cards-card-body a[href]');
+    if (picture && titleLink && !imageCell.querySelector('a')) {
+      const imageLink = document.createElement('a');
+      imageLink.href = titleLink.getAttribute('href');
+      if (titleLink.getAttribute('title')) imageLink.title = titleLink.getAttribute('title');
+      imageLink.setAttribute('aria-label', titleLink.textContent.trim());
+      imageLink.append(picture);
+      imageCell.append(imageLink);
+    }
+  });
   block.replaceChildren(ul);
 }
