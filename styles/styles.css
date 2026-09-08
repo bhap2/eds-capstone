@@ -169,15 +169,12 @@ main > .section.article-page .article-main > p {
 
 /* About Us section intros ("Meet the outstanding individuals…", "Meet our
    extraordinary travel guides…"): the source renders these at 14px, justified,
-   and non-italic. The importer wrapped them in <em>, and the default 18px
-   default-content size applies otherwise. Scope to the contributors section. */
+   and italic (the importer wrapped them in <em>, matching the source's italic
+   emphasis). The default 18px default-content size applies otherwise, so pin
+   14px here. Scope to the contributors section. */
 main > .section.contributors-container > .default-content-wrapper p {
   font-size: 14px;
   text-align: justify;
-}
-
-main > .section.contributors-container > .default-content-wrapper p em {
-  font-style: normal;
 }
 
 input,
