@@ -16,7 +16,9 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 const DEFAULTS = {
   index: '/query-index.json',
   filter: '',
+  category: '',
   pageSize: 10,
+  more: true,
 };
 
 function readConfig(block) {
@@ -29,9 +31,13 @@ function readConfig(block) {
     if (!value) return;
     if (key === 'index' || key === 'source') cfg.index = value;
     else if (key === 'filter' || key === 'path') cfg.filter = value;
+    else if (key === 'category' || key === 'activity') cfg.category = value.toLowerCase();
     else if (key === 'page-size' || key === 'limit') {
       const n = parseInt(value, 10);
       if (!Number.isNaN(n) && n > 0) cfg.pageSize = n;
+    } else if (key === 'more' || key === 'load-more') {
+      // "no"/"false"/"off"/"0" disable the Load more button (e.g. homepage teasers).
+      cfg.more = !/^(no|false|off|0)$/i.test(value);
     }
   });
   return cfg;
@@ -105,9 +111,27 @@ export default async function decorate(block) {
 
   // Filter (by path prefix) and drop the index page / non-article rows.
   let items = data.filter((row) => row.path);
-  if (cfg.filter) items = items.filter((row) => row.path.startsWith(cfg.filter));
+  if (cfg.filter) {
+    const base = cfg.filter.replace(/\/$/, '');
+    items = items.filter((row) => {
+      // Keep only descendants of the filter path, not the listing page itself
+      // (e.g. filter=/us/en/magazine/ excludes /us/en/magazine and /us/en/magazine/).
+      if (!row.path.startsWith(cfg.filter)) return false;
+      const rest = row.path.slice(base.length).replace(/^\//, '');
+      return rest.length > 0;
+    });
+  }
+  // Optional category filter — matches a `category`/`activity` index column when
+  // present (case-insensitive). No-ops until that column is added to the index.
+  if (cfg.category) {
+    items = items.filter((row) => {
+      const cat = (row.category || row.activity || '').toLowerCase();
+      return cat === cfg.category;
+    });
+  }
   // Newest first when a date-like field exists; otherwise keep index order.
-  items.sort((a, b) => (Number(b.lastModified || 0) - Number(a.lastModified || 0)));
+  const ts = (r) => Number(r.lastModified || r.date || 0);
+  items.sort((a, b) => ts(b) - ts(a));
 
   if (!items.length) {
     const msg = document.createElement('p');
@@ -123,6 +147,12 @@ export default async function decorate(block) {
     next.forEach((item) => list.append(buildCard(item)));
     shown += next.length;
   };
+
+  // Homepage teasers set more:false — render one capped batch, no button.
+  if (!cfg.more) {
+    renderNext();
+    return;
+  }
 
   const more = document.createElement('button');
   more.type = 'button';
