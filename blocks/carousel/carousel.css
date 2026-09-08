@@ -132,9 +132,10 @@
   transition: background-color 0.2s ease;
 }
 
+/* Source CTA keeps its yellow on hover — no colour shift. */
 .carousel .carousel-slide .carousel-slide-content a:hover,
 .carousel .carousel-slide .carousel-slide-content a:focus-visible {
-  background-color: var(--accent-color-hover);
+  background-color: var(--accent-color);
   color: var(--text-color);
   text-decoration: none;
 }
