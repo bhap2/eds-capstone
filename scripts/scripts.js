@@ -158,11 +158,13 @@ function buildAdventureFilterAutoBlock(main) {
     if (list.closest('.block')) return;
     const items = [...list.querySelectorAll(':scope > li')].map((li) => li.textContent.trim().toLowerCase());
     // Only the adventures filter: a short list matching the category labels,
-    // immediately followed by a .cards grid in the same section.
+    // immediately followed by a category grid in the same section. The grid can
+    // be a static .cards block or a dynamic .article-list block.
+    const GRID = '.cards, .article-list';
     const isFilter = items.length >= 3
       && items.every((t) => CATEGORIES.includes(t))
-      && (list.parentElement?.querySelector('.cards')
-        || list.closest('.section')?.querySelector('.cards'));
+      && (list.parentElement?.querySelector(GRID)
+        || list.closest('.section')?.querySelector(GRID));
     if (!isFilter) return;
 
     const block = buildBlock('adventure-filter', { elems: [list.cloneNode(true)] });

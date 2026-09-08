@@ -16,7 +16,11 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 const DEFAULTS = {
   index: '/query-index.json',
   filter: '',
+  category: '',
+  sort: '', // '' = auto (date if present, else title A→Z), 'title', or 'date'
+  paths: [], // explicit ordered paths (curated selection); card data still from index
   pageSize: 10,
+  more: true,
 };
 
 function readConfig(block) {
@@ -29,9 +33,18 @@ function readConfig(block) {
     if (!value) return;
     if (key === 'index' || key === 'source') cfg.index = value;
     else if (key === 'filter' || key === 'path') cfg.filter = value;
-    else if (key === 'page-size' || key === 'limit') {
+    else if (key === 'category' || key === 'activity') cfg.category = value.toLowerCase();
+    else if (key === 'sort' || key === 'order') cfg.sort = value.toLowerCase();
+    else if (key === 'paths' || key === 'items') {
+      // Curated, ordered list of page paths (comma/newline separated). Selection
+      // and order come from here; each card's data is still read from the index.
+      cfg.paths = value.split(/[\n,]/).map((p) => p.trim()).filter(Boolean);
+    } else if (key === 'page-size' || key === 'limit') {
       const n = parseInt(value, 10);
       if (!Number.isNaN(n) && n > 0) cfg.pageSize = n;
+    } else if (key === 'more' || key === 'load-more') {
+      // "no"/"false"/"off"/"0" disable the Load more button (e.g. homepage teasers).
+      cfg.more = !/^(no|false|off|0)$/i.test(value);
     }
   });
   return cfg;
@@ -103,11 +116,57 @@ export default async function decorate(block) {
     return;
   }
 
+  // Curated mode: an explicit ordered list of paths. Selection and order come
+  // from cfg.paths; each card's title/image/description still comes from the
+  // live index row, so editing a page updates its card here automatically.
+  if (cfg.paths.length) {
+    const byPath = new Map(data.filter((r) => r.path).map((r) => [r.path.replace(/\/$/, ''), r]));
+    const items = cfg.paths
+      .map((p) => byPath.get(p.replace(/\.html$/, '').replace(/\/$/, '')))
+      .filter(Boolean);
+    if (!items.length) {
+      const msg = document.createElement('p');
+      msg.className = 'article-list-empty';
+      msg.textContent = 'No articles found.';
+      block.append(msg);
+      return;
+    }
+    const capped = cfg.pageSize && cfg.pageSize < items.length;
+    (capped ? items.slice(0, cfg.pageSize) : items).forEach((item) => list.append(buildCard(item)));
+    return;
+  }
+
   // Filter (by path prefix) and drop the index page / non-article rows.
   let items = data.filter((row) => row.path);
-  if (cfg.filter) items = items.filter((row) => row.path.startsWith(cfg.filter));
-  // Newest first when a date-like field exists; otherwise keep index order.
-  items.sort((a, b) => (Number(b.lastModified || 0) - Number(a.lastModified || 0)));
+  if (cfg.filter) {
+    const base = cfg.filter.replace(/\/$/, '');
+    items = items.filter((row) => {
+      // Keep only descendants of the filter path, not the listing page itself
+      // (e.g. filter=/us/en/magazine/ excludes /us/en/magazine and /us/en/magazine/).
+      if (!row.path.startsWith(cfg.filter)) return false;
+      const rest = row.path.slice(base.length).replace(/^\//, '');
+      return rest.length > 0;
+    });
+  }
+  // Optional category filter — matches a `category`/`activity` index column when
+  // present (case-insensitive). No-ops until that column is added to the index.
+  if (cfg.category) {
+    items = items.filter((row) => {
+      const cat = (row.category || row.activity || '').toLowerCase();
+      return cat === cfg.category;
+    });
+  }
+  // Order to match the source listings. The WKND source renders these grids
+  // alphabetically by title (e.g. Arctic Surfing → San Diego → Ski Touring →
+  // Ultimate Guide → Western Australia), so default to a title A→Z sort. When a
+  // real publish date exists in the index, prefer newest-first (sort=date).
+  const ts = (r) => Number(r.lastModified || r.date || 0);
+  const hasDates = items.some((r) => ts(r) > 0);
+  if (cfg.sort === 'date' || (cfg.sort !== 'title' && hasDates)) {
+    items.sort((a, b) => ts(b) - ts(a));
+  } else {
+    items.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+  }
 
   if (!items.length) {
     const msg = document.createElement('p');
@@ -123,6 +182,12 @@ export default async function decorate(block) {
     next.forEach((item) => list.append(buildCard(item)));
     shown += next.length;
   };
+
+  // Homepage teasers set more:false — render one capped batch, no button.
+  if (!cfg.more) {
+    renderNext();
+    return;
+  }
 
   const more = document.createElement('button');
   more.type = 'button';
