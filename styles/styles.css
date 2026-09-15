@@ -377,12 +377,15 @@ main > .section:has(+ .section.cards-container) + .section.cards-container {
 /* Section-CTA separator: the source renders a full-width 1px #ebebeb rule after
    the "All Articles" / "All Trips" section buttons. EDS has no content primitive
    for a visible rule (an authored <hr> becomes an invisible section break), so
-   recreate it as a rule below the button-wrapper in a cards section. Source
-   spacing: ~64px from the button down to the line. */
-main > .section.cards-container .default-content-wrapper > .button-wrapper::after {
+   recreate it as a rule below the button-wrapper. The buttons sit in a cards
+   section (static) or an article-list section (dynamic listings), so match both.
+   Source spacing: ~64px from the button down to the line, and ~91px from the
+   line down to the next section heading. */
+main > .section.cards-container .default-content-wrapper > .button-wrapper::after,
+main > .section.article-list-container .default-content-wrapper > .button-wrapper::after {
   content: '';
   display: block;
-  margin: 64px 0 0;
+  margin: 64px 0 91px;
   border-top: 1px solid #ebebeb;
 }
 
