@@ -385,8 +385,14 @@ main > .section.cards-container .default-content-wrapper > .button-wrapper::afte
 main > .section.article-list-container .default-content-wrapper > .button-wrapper::after {
   content: '';
   display: block;
+  height: 1px;
   margin: 64px 0 91px;
-  border-top: 1px solid #ebebeb;
+
+  /* Paint the rule as a 1px background fill rather than a border: a 1px
+     border on a sub-pixel-positioned ::after gets anti-aliased across two
+     device rows and renders almost invisibly. A background fill paints the
+     full #ebebeb line reliably (matches the source's visible rule). */
+  background-color: #ebebeb;
 }
 
 /* "Members Only" divider: the source draws a full-width rule between the
